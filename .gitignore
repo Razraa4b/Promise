@@ -1,0 +1,78 @@
+# My files
+TODO.md
+
+# User-specific files
+*.suo
+*.user
+*.sln.docstates
+.vs/
+
+# Build results
+
+*.sln.ide/
+[Dd]ebug/
+[Rr]elease/
+x64/
+[Bb]in/
+[Oo]bj/
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+*_i.c
+*_p.c
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.scc
+*.binlog
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+
+# Click-Once directory
+publish/
+
+# ReSharper is a .NET coding add-in
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Cake
+tools/*
+!tools/packages.config
+.nuget
+artifacts/
+nuget
+project.lock.json
+.idea/*
+
+# Others
+sql/
+*.Cache
+ClientBin/
+[Ss]tyle[Cc]op.*
+~$*
+*~
+*.dbmdl
+*.[Pp]ublish.xml
+*.pfx
+*.publishsettings

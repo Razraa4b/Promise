@@ -1,0 +1,36 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:Promise.Application.ViewModels;assembly=Promise.Application"
+        x:DataType="vm:MainViewModel"
+		x:Class="Promise.UI.Views.MainView"
+        Title="Promise App" 
+		Width="1000" Height="600"
+		MinWidth="220" MinHeight="40"
+		xmlns:ctrls="clr-namespace:Promise.UI.Controls;assembly=Promise.UI"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="-1">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="28"/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+
+		<ctrls:TitleBar Title="Promise App" Grid.Row="0" Grid.ColumnSpan="5"/>
+		
+		
+	</Grid>
+</Window>

@@ -27,6 +27,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Promise.Application\Promise.Application.csproj" />
+    <ProjectReference Include="..\Promise.Domain\Promise.Domain.csproj" />
+    <ProjectReference Include="..\Promise.Infrastructure\Promise.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

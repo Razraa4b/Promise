@@ -10,4 +10,8 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Promise.Domain\Promise.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

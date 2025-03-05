@@ -31,6 +31,5 @@
 
 		<ctrls:TitleBar Title="Promise App" Grid.Row="0" Grid.ColumnSpan="5"/>
 		
-		
 	</Grid>
 </Window>

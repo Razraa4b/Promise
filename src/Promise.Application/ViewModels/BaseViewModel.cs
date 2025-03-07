@@ -2,7 +2,7 @@
 
 namespace Promise.Application.ViewModels
 {
-    public abstract class ViewModelBase : ReactiveObject
+    public abstract class BaseViewModel : ReactiveObject
     {
 
     }

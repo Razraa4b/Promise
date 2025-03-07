@@ -2,7 +2,6 @@ using Autofac;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using Microsoft.Extensions.Options;
 using Promise.Application.ViewModels;
 using Promise.Domain.Contracts;
 using Promise.Domain.Models;
@@ -43,14 +42,9 @@ namespace Promise.UI
 
             IContainer services = builder.Build();
 
-            MainViewModel mainViewModel = services.Resolve<MainViewModel>();
-
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainView
-                {
-                    DataContext = mainViewModel
-                };
+                desktop.MainWindow = services.Resolve<MainView>();
             } 
 
             base.OnFrameworkInitializationCompleted();

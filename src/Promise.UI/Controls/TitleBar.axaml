@@ -4,7 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Promise.UI.Controls.TitleBar"
-			 DataContext="{Binding RelativeSource={RelativeSource Self}}">
+			 DataContext="{Binding RelativeSource={RelativeSource Self}}"
+			 IsHitTestVisible="True"
+			 Background="#060606"
+			 PointerPressed="TitleBarPointerPressed">
 	<UserControl.Styles>
 		<Style Selector="Button">
 			<Setter Property="VerticalAlignment" Value="Stretch"/>

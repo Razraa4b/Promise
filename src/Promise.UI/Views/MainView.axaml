@@ -4,32 +4,83 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:Promise.Application.ViewModels;assembly=Promise.Application"
-        x:DataType="vm:MainViewModel"
+        xmlns:ctrls="clr-namespace:Promise.UI.Controls;assembly=Promise.UI"
+		x:DataType="vm:MainViewModel"
 		x:Class="Promise.UI.Views.MainView"
         Title="Promise App" 
 		Width="1000" Height="600"
 		MinWidth="220" MinHeight="40"
-		xmlns:ctrls="clr-namespace:Promise.UI.Controls;assembly=Promise.UI"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="-1">
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition/>
-			<ColumnDefinition/>
-			<ColumnDefinition/>
-			<ColumnDefinition/>
-			<ColumnDefinition/>
-		</Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="28"/>
-			<RowDefinition/>
-			<RowDefinition/>
-			<RowDefinition/>
-			<RowDefinition/>
-		</Grid.RowDefinitions>
+	<Window.Styles>
+		<Style Selector="TabItem">
+			<Setter Property="Margin" Value="5 0"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Height" Value="28"/>
+			<Setter Property="Background" Value="#141414"/>
+			<Setter Property="CornerRadius" Value="100"/>
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border
+						Name="PART_LayoutRoot"
+						Height="{TemplateBinding Height}"
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						BorderThickness="{TemplateBinding BorderThickness}"
+						CornerRadius="{TemplateBinding CornerRadius}"
+						Padding="{TemplateBinding Padding}">
+						<ContentPresenter
+								Name="PART_ContentPresenter"
+								HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+								VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+								Content="{TemplateBinding Header}"
+								ContentTemplate="{TemplateBinding HeaderTemplate}"
+								RecognizesAccessKey="True"/>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+		<Style Selector="TabItem:pointerover[Background=#141414] /template/ Border#PART_LayoutRoot">
+			<Setter Property="Background" Value="#202020" />
+		</Style>
+		<Style Selector="TabItem:selected /template/ Border#PART_LayoutRoot">
+			<Setter Property="Background" Value="#282828"/>
+		</Style>
+	</Window.Styles>
+	<DockPanel>
+		<ctrls:TitleBar IsHitTestVisible="True" Height="28" DockPanel.Dock="Top" 
+						Title="Promise App" Grid.ColumnSpan="5"/>
+		<Grid Margin="0 15 0 0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="30"/>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
 
-		<ctrls:TitleBar Title="Promise App" Grid.Row="0" Grid.ColumnSpan="5"/>
-		
-	</Grid>
+			<TabControl Grid.ColumnSpan="5" HorizontalAlignment="Center">
+				<TabControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<DockPanel/>
+					</ItemsPanelTemplate>
+				</TabControl.ItemsPanel>
+				<TabItem Header="Notes"/>
+				<TabItem Header="Reports"/>
+				<TabItem Header="Daily Report" IsSelected="True"/>
+				<TabItem Header="Events"/>
+				<TabItem Header="Schedule"/>
+			</TabControl>
+			
+			<ContentControl Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="5"/>
+		</Grid>
+	</DockPanel>
 </Window>

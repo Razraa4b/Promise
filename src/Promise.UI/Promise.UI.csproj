@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+	<ApplicationIcon>Assets\avalonia-logo.ico</ApplicationIcon>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
 
@@ -16,6 +17,7 @@
     <PackageReference Include="Autofac" Version="8.2.0" />
     <PackageReference Include="Avalonia" Version="11.2.5" />
     <PackageReference Include="Avalonia.Desktop" Version="11.2.5" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.5" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.5" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.5" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
@@ -32,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\Controls\TitleBar.axaml.cs">
+    <Compile Update="Controls\TitleBar.axaml.cs">
       <DependentUpon>TitleBar.axaml</DependentUpon>
     </Compile>
     <Compile Update="Views\MainView.axaml.cs">

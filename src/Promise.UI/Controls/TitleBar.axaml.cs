@@ -86,11 +86,5 @@ namespace Promise.UI.Controls
             if (hostWindow != null)
                 hostWindow.Close();
         }
-
-        private void TitleBarPointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
-        {
-            Window? hostWindow = (Window?)VisualRoot;
-            hostWindow?.BeginMoveDrag(e);
-        }
     }
 }

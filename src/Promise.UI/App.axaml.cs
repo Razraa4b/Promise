@@ -29,20 +29,23 @@ namespace Promise.UI
 
             ContainerBuilder builder = new ContainerBuilder();
 
-            // Main
-            builder.Register(c => this).SingleInstance();
-
+            // Logger
             builder.RegisterGeneric(typeof(FileLogger<>)).As(typeof(ILogger<>));
 
+            // Db Context
             builder.RegisterType<ApplicationContext>().InstancePerLifetimeScope();
 
             // Repositories
-            builder.RegisterType<NotesRepository>().As<IRepository<Note>>();
-            builder.RegisterType<ReportsRepository>().As<IRepository<Report>>();
+            builder.RegisterType<NotesRepository>().As<IRepository<Note>>().InstancePerLifetimeScope();
+            builder.RegisterType<ReportsRepository>().As<IRepository<Report>>().InstancePerLifetimeScope();
             // View Models
-            builder.RegisterType<MainViewModel>().SingleInstance();
+            builder.RegisterType<MainViewModel>().AsSelf().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<NotesViewModel>().AsSelf().AsImplementedInterfaces().SingleInstance();
             // Views
             builder.Register(c => new MainView() { DataContext = c.Resolve<MainViewModel>() }).SingleInstance();
+            builder.Register(c => new NotesView() { DataContext = c.Resolve<NotesViewModel>() });
+            // View Locator
+            builder.RegisterType<ViewLocator>();
 
             AutofacDependencyResolver resolver = builder.UseAutofacDependencyResolver();
 
@@ -55,6 +58,9 @@ namespace Promise.UI
             Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetCallingAssembly());
 
             IContainer container = builder.Build();
+
+            // Setup View Locator
+            Locator.CurrentMutable.RegisterLazySingleton(() => container.Resolve<ViewLocator>(), typeof(IViewLocator));
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {

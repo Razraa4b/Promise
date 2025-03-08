@@ -4,10 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Promise.UI.Controls.TitleBar"
-			 DataContext="{Binding RelativeSource={RelativeSource Self}}"
-			 IsHitTestVisible="True"
-			 Background="#060606"
-			 PointerPressed="TitleBarPointerPressed">
+			 DataContext="{Binding RelativeSource={RelativeSource Self}}">
 	<UserControl.Styles>
 		<Style Selector="Button">
 			<Setter Property="VerticalAlignment" Value="Stretch"/>
@@ -15,72 +12,75 @@
 			<Setter Property="BorderThickness" Value="0"/>
 		</Style>
 	</UserControl.Styles>
-	<DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-		<TextBlock Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" 
-				   HorizontalAlignment="Left" DockPanel.Dock="Left"
-				   Margin="10 0" FontSize="12" FontFamily="Segou UI"/>
-		<StackPanel HorizontalAlignment="Right" Orientation="Horizontal" DockPanel.Dock="Right">
-			<Button Click="MinimizeButtonClick">
-				<Button.Resources>
-					<CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
-				</Button.Resources>
-				<Button.Styles>
-					<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-						<Setter Property="Background" Value="#44AAAAAA"/>
-					</Style>
-					<Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
-						<Setter Property="Background" Value="Transparent"/>
-					</Style>
-				</Button.Styles>
-				<Path Margin="10,0,10,0"
-					  Stretch="Uniform"
-					  VerticalAlignment="Center"
-					  Fill="{DynamicResource SystemControlForegroundBaseHighBrush}"
-					  Data="M2048 1229v-205h-2048v205h2048z"></Path>
-			</Button>
-			<Button Click="MaximizeButtonClick">
-				<Button.Resources>
-					<CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
-				</Button.Resources>
-				<Button.Styles>
-					<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-						<Setter Property="Background" Value="#44AAAAAA"/>
-					</Style>
-					<Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
-						<Setter Property="Background" Value="Transparent"/>
-					</Style>
-				</Button.Styles>
-				<Path Name="MaximizeIcon"
-					  Margin="10,0,10,0"
-					  Stretch="Uniform"
-					  VerticalAlignment="Center"
-					  Fill="{DynamicResource SystemControlForegroundBaseHighBrush}"
-					  Data="M2048 2048v-2048h-2048v2048h2048zM1843 1843h-1638v-1638h1638v1638z"></Path>
-			</Button>
+	<Grid>
+		<DockPanel Background="#151515" IsHitTestVisible="False"/>
+		<DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+			<TextBlock Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
+					   HorizontalAlignment="Left" DockPanel.Dock="Left"
+					   Margin="10 0" FontSize="12" FontFamily="Segou UI"/>
+			<StackPanel HorizontalAlignment="Right" Orientation="Horizontal" DockPanel.Dock="Right">
+				<Button Click="MinimizeButtonClick">
+					<Button.Resources>
+						<CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
+					</Button.Resources>
+					<Button.Styles>
+						<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+							<Setter Property="Background" Value="#44AAAAAA"/>
+						</Style>
+						<Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
+							<Setter Property="Background" Value="Transparent"/>
+						</Style>
+					</Button.Styles>
+					<Path Margin="10,0,10,0"
+						  Stretch="Uniform"
+						  VerticalAlignment="Center"
+						  Fill="{DynamicResource SystemControlForegroundBaseHighBrush}"
+						  Data="M2048 1229v-205h-2048v205h2048z"></Path>
+				</Button>
+				<Button Click="MaximizeButtonClick">
+					<Button.Resources>
+						<CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
+					</Button.Resources>
+					<Button.Styles>
+						<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+							<Setter Property="Background" Value="#44AAAAAA"/>
+						</Style>
+						<Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
+							<Setter Property="Background" Value="Transparent"/>
+						</Style>
+					</Button.Styles>
+					<Path Name="MaximizeIcon"
+						  Margin="10,0,10,0"
+						  Stretch="Uniform"
+						  VerticalAlignment="Center"
+						  Fill="{DynamicResource SystemControlForegroundBaseHighBrush}"
+						  Data="M2048 2048v-2048h-2048v2048h2048zM1843 1843h-1638v-1638h1638v1638z"></Path>
+				</Button>
 
-			<Button Click="CloseButtonClick">
-				<Button.Resources>
-					<CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
-				</Button.Resources>
-				<Button.Styles>
-					<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-						<Setter Property="Background" Value="Red"/>
-					</Style>
-					<Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
-						<Setter Property="Background" Value="Transparent"/>
-					</Style>
-					<Style Selector="Button:pointerover > Path">
-						<Setter Property="Fill" Value="White"/>
-					</Style>
-					<Style Selector="Button:not(:pointerover) > Path">
-						<Setter Property="Fill" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
-					</Style>
-				</Button.Styles>
-				<Path Margin="10,0,10,0"
-					  Stretch="Uniform"
-					  VerticalAlignment="Center"
-					  Data="M1169 1024l879 -879l-145 -145l-879 879l-879 -879l-145 145l879 879l-879 879l145 145l879 -879l879 879l145 -145z"></Path>
-			</Button>
-		</StackPanel>
-	</DockPanel>
+				<Button Click="CloseButtonClick">
+					<Button.Resources>
+						<CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
+					</Button.Resources>
+					<Button.Styles>
+						<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+							<Setter Property="Background" Value="Red"/>
+						</Style>
+						<Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
+							<Setter Property="Background" Value="Transparent"/>
+						</Style>
+						<Style Selector="Button:pointerover > Path">
+							<Setter Property="Fill" Value="White"/>
+						</Style>
+						<Style Selector="Button:not(:pointerover) > Path">
+							<Setter Property="Fill" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+						</Style>
+					</Button.Styles>
+					<Path Margin="10,0,10,0"
+						  Stretch="Uniform"
+						  VerticalAlignment="Center"
+						  Data="M1169 1024l879 -879l-145 -145l-879 879l-879 -879l-145 145l879 879l-879 879l145 145l879 -879l879 879l145 -145z"></Path>
+				</Button>
+			</StackPanel>
+		</DockPanel>
+	</Grid>
 </UserControl>

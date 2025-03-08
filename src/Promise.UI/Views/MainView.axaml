@@ -1,10 +1,14 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:rxui="http://reactiveui.net"
+        xmlns:i="using:Avalonia.Xaml.Interactivity"
+		xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:Promise.Application.ViewModels;assembly=Promise.Application"
-        xmlns:ctrls="clr-namespace:Promise.UI.Controls;assembly=Promise.UI"
+        xmlns:controls="clr-namespace:Promise.UI.Controls;assembly=Promise.UI"
+		xmlns:converters="clr-namespace:Promise.UI.Converters;assembly=Promise.UI"
 		x:DataType="vm:MainViewModel"
 		x:Class="Promise.UI.Views.MainView"
         Title="Promise App" 
@@ -13,6 +17,9 @@
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="-1">
+	<Window.Resources>
+		<converters:ControlPropertyValueConverter x:Key="controlPropertyValueConverter"/>
+	</Window.Resources>
 	<Window.Styles>
 		<Style Selector="TabItem">
 			<Setter Property="Margin" Value="5 0"/>
@@ -49,8 +56,8 @@
 		</Style>
 	</Window.Styles>
 	<DockPanel>
-		<ctrls:TitleBar IsHitTestVisible="True" Height="28" DockPanel.Dock="Top" 
-						Title="Promise App" Grid.ColumnSpan="5"/>
+		<controls:TitleBar IsHitTestVisible="True" Height="28" DockPanel.Dock="Top" 
+						   Title="Promise App" Grid.ColumnSpan="5"/>
 		<Grid Margin="0 15 0 0">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition/>
@@ -67,7 +74,17 @@
 				<RowDefinition/>
 			</Grid.RowDefinitions>
 
-			<TabControl Grid.ColumnSpan="5" HorizontalAlignment="Center">
+			<TabControl Name="SelectionControl" SelectedIndex="1" Grid.ColumnSpan="5" HorizontalAlignment="Center">
+				<i:Interaction.Behaviors>
+					<ia:EventTriggerBehavior EventName="SelectionChanged" 
+											 SourceObject="{Binding #SelectionControl}">
+						<ia:InvokeCommandAction PassEventArgsToCommand="True" 
+												CommandParameter="{Binding Path=SelectedItem, ElementName=SelectionControl,
+																   Converter={StaticResource controlPropertyValueConverter}, 
+																   ConverterParameter=Header}"
+												Command="{Binding NavigateViewCommand}"/>
+					</ia:EventTriggerBehavior>
+				</i:Interaction.Behaviors>
 				<TabControl.ItemsPanel>
 					<ItemsPanelTemplate>
 						<DockPanel/>
@@ -75,12 +92,17 @@
 				</TabControl.ItemsPanel>
 				<TabItem Header="Notes"/>
 				<TabItem Header="Reports"/>
-				<TabItem Header="Daily Report" IsSelected="True"/>
+				<TabItem Header="Daily Report"/>
 				<TabItem Header="Events"/>
 				<TabItem Header="Schedule"/>
 			</TabControl>
-						
-			<ContentControl Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="5"/>
+			
+			<rxui:RoutedViewHost Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="5" 
+								 Router="{Binding Router}">
+				<rxui:RoutedViewHost.DefaultContent>
+					<TextBlock Text="Default Content"/>
+				</rxui:RoutedViewHost.DefaultContent>
+			</rxui:RoutedViewHost>
 		</Grid>
 	</DockPanel>
 </Window>

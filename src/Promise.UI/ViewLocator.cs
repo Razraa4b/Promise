@@ -1,11 +1,13 @@
- using System;
+using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using Promise.Application.ViewModels;
+using Promise.UI.Views;
+using ReactiveUI;
 
 namespace Promise.UI
 {
-    public class ViewLocator : IDataTemplate
+    public class ViewLocator : IDataTemplate, IViewLocator
     {
         public Control? Build(object? param)
         {
@@ -26,6 +28,18 @@ namespace Promise.UI
         public bool Match(object? data)
         {
             return data is BaseViewModel;
+        }
+
+        // For ReactiveUI
+        public IViewFor? ResolveView<T>(T? viewModel, string? contract = null)
+        {
+            switch (viewModel)
+            {
+                case NotesViewModel:
+                    return new NotesView() { DataContext = viewModel };
+                default:
+                    return null;
+            }
         }
     }
 }

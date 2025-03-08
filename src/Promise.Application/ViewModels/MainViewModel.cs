@@ -1,16 +1,18 @@
 ﻿using Autofac;
 using ReactiveUI;
-using Splat;
+using System.Reactive.Disposables;
 
 namespace Promise.Application.ViewModels
 {
-    public class MainViewModel : BaseViewModel, IScreen
+    public class MainViewModel : BaseViewModel, IScreen, IActivatableViewModel
     {
         private readonly ILifetimeScope _scope;
 
-        public RoutingState Router { get; set; } = new RoutingState();
+        public RoutingState Router { get; } = new RoutingState();
 
         public ReactiveCommand<string, IRoutableViewModel?> NavigateViewCommand { get; set; }
+
+        public ViewModelActivator Activator { get; set; } = new ViewModelActivator();
 
         public MainViewModel(ILifetimeScope scope)
         {
@@ -30,6 +32,11 @@ namespace Promise.Application.ViewModels
                        return Router.Navigate.Execute(viewModel);
                 }
                 throw new ArgumentException(null, nameof(param));
+            });
+
+            this.WhenActivated((CompositeDisposable disposables) =>
+            {
+                NavigateViewCommand.Execute("Notes");
             });
         }
     }

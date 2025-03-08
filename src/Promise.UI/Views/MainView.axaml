@@ -74,7 +74,7 @@
 				<RowDefinition/>
 			</Grid.RowDefinitions>
 
-			<TabControl Name="SelectionControl" SelectedIndex="1" Grid.ColumnSpan="5" HorizontalAlignment="Center">
+			<TabControl Name="SelectionControl" Grid.ColumnSpan="5" HorizontalAlignment="Center">
 				<i:Interaction.Behaviors>
 					<ia:EventTriggerBehavior EventName="SelectionChanged" 
 											 SourceObject="{Binding #SelectionControl}">
@@ -90,7 +90,7 @@
 						<DockPanel/>
 					</ItemsPanelTemplate>
 				</TabControl.ItemsPanel>
-				<TabItem Header="Notes"/>
+				<TabItem Header="Notes" IsSelected="True"/>
 				<TabItem Header="Reports"/>
 				<TabItem Header="Daily Report"/>
 				<TabItem Header="Events"/>
@@ -99,9 +99,6 @@
 			
 			<rxui:RoutedViewHost Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="5" 
 								 Router="{Binding Router}">
-				<rxui:RoutedViewHost.DefaultContent>
-					<TextBlock Text="Default Content"/>
-				</rxui:RoutedViewHost.DefaultContent>
 			</rxui:RoutedViewHost>
 		</Grid>
 	</DockPanel>

@@ -9,6 +9,10 @@ using Promise.Infrastructure.Database;
 using Promise.Infrastructure.Repositories;
 using Promise.Infrastructure.Services.Loggers;
 using Promise.UI.Views;
+using ReactiveUI;
+using Splat;
+using Splat.Autofac;
+using System.Reflection;
 
 namespace Promise.UI
 {
@@ -38,13 +42,23 @@ namespace Promise.UI
             // View Models
             builder.RegisterType<MainViewModel>().SingleInstance();
             // Views
-            builder.RegisterType<MainView>().SingleInstance();
+            builder.Register(c => new MainView() { DataContext = c.Resolve<MainViewModel>() }).SingleInstance();
 
-            IContainer services = builder.Build();
+            AutofacDependencyResolver resolver = builder.UseAutofacDependencyResolver();
+
+            builder.RegisterInstance(resolver);
+
+            resolver.InitializeSplat();
+            resolver.InitializeReactiveUI();
+
+            Locator.SetLocator(resolver);
+            Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetCallingAssembly());
+
+            IContainer container = builder.Build();
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = services.Resolve<MainView>();
+                desktop.MainWindow = container.Resolve<MainView>();
             } 
 
             base.OnFrameworkInitializationCompleted();

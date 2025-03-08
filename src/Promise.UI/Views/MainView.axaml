@@ -79,7 +79,7 @@
 				<TabItem Header="Events"/>
 				<TabItem Header="Schedule"/>
 			</TabControl>
-			
+						
 			<ContentControl Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="5"/>
 		</Grid>
 	</DockPanel>

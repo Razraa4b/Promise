@@ -65,7 +65,7 @@ namespace Promise.UI
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = container.Resolve<MainView>();
-            } 
+            }
 
             base.OnFrameworkInitializationCompleted();
         }

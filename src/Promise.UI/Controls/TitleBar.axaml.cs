@@ -1,11 +1,9 @@
-using System;
-using System.ComponentModel;
-using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Data;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using System;
+using System.Threading.Tasks;
 
 namespace Promise.UI.Controls
 {
@@ -54,7 +52,7 @@ namespace Promise.UI.Controls
                 if (s == WindowState.Maximized)
                 {
                     MaximizeIcon.Data = Geometry.Parse("M2048 1638h-410v410h-1638v-1638h410v-410h1638v1638zm-614-1024h-1229v1229h1229v-1229zm409-409h-1229v205h1024v1024h205v-1229z");
-                    hostWindow.Padding = new Thickness(7); 
+                    hostWindow.Padding = new Thickness(7);
                 }
             });
         }

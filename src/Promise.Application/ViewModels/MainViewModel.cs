@@ -29,7 +29,7 @@ namespace Promise.Application.ViewModels
                     _scope.TryResolve(type, out object? instance);
 
                     if (instance is IRoutableViewModel viewModel)
-                       return Router.Navigate.Execute(viewModel);
+                        return Router.Navigate.Execute(viewModel);
                 }
                 throw new ArgumentException(null, nameof(param));
             });

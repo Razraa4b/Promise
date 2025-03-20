@@ -37,6 +37,8 @@ namespace Promise.UI
             {
                 case NotesViewModel:
                     return new NotesView() { DataContext = viewModel };
+                case ReportsViewModel:
+                    return new ReportsView() { DataContext = viewModel };
                 default:
                     return null;
             }

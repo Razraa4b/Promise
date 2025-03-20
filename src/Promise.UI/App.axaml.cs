@@ -41,9 +41,11 @@ namespace Promise.UI
             // View Models
             builder.RegisterType<MainViewModel>().AsSelf().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<NotesViewModel>().AsSelf().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<ReportsViewModel>().AsSelf().AsImplementedInterfaces().SingleInstance();
             // Views
             builder.Register(c => new MainView() { DataContext = c.Resolve<MainViewModel>() }).SingleInstance();
             builder.Register(c => new NotesView() { DataContext = c.Resolve<NotesViewModel>() });
+            builder.Register(c => new ReportsView() { DataContext = c.Resolve<NotesViewModel>() });
             // View Locator
             builder.RegisterType<ViewLocator>();
 

@@ -4,7 +4,7 @@ using System.Reactive.Disposables;
 
 namespace Promise.Application.ViewModels
 {
-    public class MainViewModel : BaseViewModel, IScreen, IActivatableViewModel
+    public class MainViewModel : BaseViewModel, IScreen
     {
         private readonly ILifetimeScope _scope;
 
@@ -12,15 +12,13 @@ namespace Promise.Application.ViewModels
 
         public ReactiveCommand<string, IRoutableViewModel?> NavigateViewCommand { get; set; }
 
-        public ViewModelActivator Activator { get; set; } = new ViewModelActivator();
-
         public MainViewModel(ILifetimeScope scope)
         {
             _scope = scope;
 
             NavigateViewCommand = ReactiveCommand.CreateFromObservable<string, IRoutableViewModel?>((string param) =>
             {
-                string viewModelName = "Promise.Application.ViewModels." + param.Replace(" ", "").Trim() + "ViewModel";
+                string viewModelName = "Promise.Application.ViewModels." + param.Replace(" ", "") + "ViewModel";
 
                 Type? type = Type.GetType(viewModelName);
 

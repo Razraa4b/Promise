@@ -2,8 +2,10 @@ using Autofac;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using Avalonia.Styling;
 using Promise.Application.ViewModels;
 using Promise.Domain.Contracts;
+using Promise.Domain.Enums;
 using Promise.Domain.Models;
 using Promise.Infrastructure.Database;
 using Promise.Infrastructure.Repositories;
@@ -29,12 +31,12 @@ namespace Promise.UI
 
             ContainerBuilder builder = new ContainerBuilder();
 
+            // Theme Manager
+            builder.RegisterType<ThemeManager>().SingleInstance();
             // Logger
             builder.RegisterGeneric(typeof(FileLogger<>)).As(typeof(ILogger<>));
-
             // Db Context
             builder.RegisterType<ApplicationContext>().InstancePerLifetimeScope();
-
             // Repositories
             builder.RegisterType<NotesRepository>().As<IRepository<Note>>().InstancePerLifetimeScope();
             builder.RegisterType<ReportsRepository>().As<IRepository<Report>>().InstancePerLifetimeScope();
@@ -63,6 +65,11 @@ namespace Promise.UI
 
             // Setup View Locator
             Locator.CurrentMutable.RegisterLazySingleton(() => container.Resolve<ViewLocator>(), typeof(IViewLocator));
+
+            ThemeManager manager = container.Resolve<ThemeManager>();
+            ThemeMode theme = ActualThemeVariant == ThemeVariant.Light ? ThemeMode.Light : ThemeMode.Dark;
+
+            manager.Select(theme);
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {

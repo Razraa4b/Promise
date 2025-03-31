@@ -13,7 +13,7 @@
 		</Style>
 	</UserControl.Styles>
 	<Grid>
-		<DockPanel Background="#151515" IsHitTestVisible="False"/>
+		<DockPanel Background="{DynamicResource ThemeColor}" IsHitTestVisible="False"/>
 		<DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 			<TextBlock Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
 					   HorizontalAlignment="Left" DockPanel.Dock="Left"

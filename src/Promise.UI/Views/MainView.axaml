@@ -22,10 +22,11 @@
 	</Window.Resources>
 	<Window.Styles>
 		<Style Selector="TabItem">
+			<Setter Property="Background" Value="{DynamicResource HighUniformThemeColor}"/>
+			<Setter Property="Foreground" Value="{DynamicResource FontStrongThemeColor}"/>
 			<Setter Property="Margin" Value="5 0"/>
 			<Setter Property="FontSize" Value="12"/>
 			<Setter Property="Height" Value="28"/>
-			<Setter Property="Background" Value="#141414"/>
 			<Setter Property="CornerRadius" Value="100"/>
 			<Setter Property="Template">
 				<ControlTemplate>
@@ -39,6 +40,7 @@
 						Padding="{TemplateBinding Padding}">
 						<ContentPresenter
 								Name="PART_ContentPresenter"
+								Foreground="{TemplateBinding Foreground}"
 								HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
 								VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
 								Content="{TemplateBinding Header}"
@@ -48,11 +50,17 @@
 				</ControlTemplate>
 			</Setter>
 		</Style>
-		<Style Selector="TabItem:pointerover[Background=#141414] /template/ Border#PART_LayoutRoot">
-			<Setter Property="Background" Value="#202020" />
+		<Style Selector="TabItem:pointerover:not(:selected) /template/ Border#PART_LayoutRoot">
+			<Setter Property="Background" Value="{DynamicResource MediumUniformThemeColor}" />
+		</Style>
+		<Style Selector="TabItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Foreground" Value="{DynamicResource FontStrongThemeColor}"/>
+		</Style>
+		<Style Selector="TabItem:pointerover:not(:selected) /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Foreground" Value="{DynamicResource FontStrongThemeColor}"/>
 		</Style>
 		<Style Selector="TabItem:selected /template/ Border#PART_LayoutRoot">
-			<Setter Property="Background" Value="#282828"/>
+			<Setter Property="Background" Value="{DynamicResource LowUniformThemeColor}"/>
 		</Style>
 	</Window.Styles>
 	<DockPanel>
@@ -66,8 +74,8 @@
 										 SourceObject="{Binding #SelectionControl}">
 					<ia:InvokeCommandAction PassEventArgsToCommand="True"
 											CommandParameter="{Binding Path=SelectedItem, ElementName=SelectionControl,
-																   Converter={StaticResource controlPropertyValueConverter}, 
-																   ConverterParameter=Header}"
+																	   Converter={StaticResource controlPropertyValueConverter}, 
+																	   ConverterParameter=Header}"
 											Command="{Binding NavigateViewCommand}"/>
 				</ia:EventTriggerBehavior>
 			</i:Interaction.Behaviors>

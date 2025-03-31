@@ -14,6 +14,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <AvaloniaXaml Remove="Themes\DarkTheme.axaml" />
+    <AvaloniaXaml Remove="Themes\LightTheme.axaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Themes\DarkTheme.axaml" />
+    <AvaloniaResource Include="Themes\LightTheme.axaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="8.2.0" />
     <PackageReference Include="Avalonia" Version="11.2.5" />
     <PackageReference Include="Avalonia.Desktop" Version="11.2.5" />

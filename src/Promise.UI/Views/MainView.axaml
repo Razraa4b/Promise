@@ -64,7 +64,8 @@
 		</Style>
 	</Window.Styles>
 	<DockPanel>
-		<controls:TitleBar IsHitTestVisible="True" Height="28" DockPanel.Dock="Top" 
+		<controls:TitleBar Name="TitleBar" IsHitTestVisible="True" 
+						   Height="28" DockPanel.Dock="Top" 
 						   Title="Promise App" Grid.ColumnSpan="5"/>
 		
 		<!-- View selection panel for navigation -->

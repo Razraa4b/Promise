@@ -16,32 +16,29 @@ namespace Promise.Infrastructure.Repositories
 
         public async Task Add(Note entity)
         {
-            _context.Notes.Add(entity);
-            await _context.SaveChangesAsync();
+            await _context.Notes.AddAsync(entity);
         }
 
-        public async Task Delete(Note entity)
+        public Task Delete(Note entity)
         {
             _context.Notes.Remove(entity);
-            await _context.SaveChangesAsync();
+            return Task.CompletedTask;
         }
 
-        public async Task Update(Note entity)
+        public async Task<Note?> Get(int id)
+        {
+            return await _context.Notes.FirstOrDefaultAsync(n => n.Id == id);
+        }
+
+        public async Task<IEnumerable<Note>> GetAll()
+        {
+            return await _context.Notes.ToListAsync();
+        }
+
+        public Task Update(Note entity)
         {
             _context.Notes.Update(entity);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<Note?> Get(Func<Note, bool> condition)
-        {
-            Note? note = await _context.Notes.FirstOrDefaultAsync(n => condition(n));
-            return note;
-        }
-
-        public async Task<IEnumerable<Note>> GetAll(Func<Note, bool> condition)
-        {
-            List<Note> notes = await _context.Notes.Where(n => condition(n)).ToListAsync();
-            return notes;
+            return Task.CompletedTask;
         }
     }
 }

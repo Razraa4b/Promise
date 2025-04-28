@@ -8,7 +8,7 @@ TODO.md
 .vs/
 
 # Build results
-
+out
 *.sln.ide/
 [Dd]ebug/
 [Rr]elease/

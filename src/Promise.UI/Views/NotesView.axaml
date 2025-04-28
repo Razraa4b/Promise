@@ -3,7 +3,55 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Promise.UI.Views.NotesView">
-	<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
-			   Text="Its Notes View!"/>
+             xmlns:vm="clr-namespace:Promise.Application.ViewModels;assembly=Promise.Application"
+			 xmlns:m="clr-namespace:Promise.Domain.Models;assembly=Promise.Domain"
+			 x:DataType="vm:NotesViewModel"
+			 x:Class="Promise.UI.Views.NotesView">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition MinWidth="150" Width="180"/>
+			<ColumnDefinition Width="8" MaxWidth="8"/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition Height="40"/>
+		</Grid.RowDefinitions>
+
+		<GridSplitter Width="8" Grid.Column="1" Grid.RowSpan="3"/>
+		
+		<!-- Notes tree -->
+		<Border Grid.RowSpan="3"
+				Background="{DynamicResource MediumUniformThemeColor}"
+				CornerRadius="0 15 0 0">
+			<TreeView Background="Transparent"
+					  ItemsSource="{Binding Notes}"
+					  SelectedItem="{Binding CurrentNote}">
+				<TreeView.DataTemplates>
+					<TreeDataTemplate DataType="m:Note" ItemsSource="{Binding Links}">
+						<TextBlock Text="{Binding Title}"/>
+					</TreeDataTemplate>
+				</TreeView.DataTemplates>
+			</TreeView>
+		</Border>
+
+		<!-- Note manipulation panel -->
+		<Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+				Padding="10 0"
+				Background="{DynamicResource HighUniformThemeColor}">
+			<StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+				<StackPanel.Styles>
+					<Style Selector="Button">
+						<Setter Property="Margin" Value="3 0"/>
+					</Style>
+				</StackPanel.Styles>
+				
+				<Button IsEnabled="{Binding IsCurrentNoteSelected}" 
+						Content="Update" Command="{Binding UpdateNoteCommand}"/>
+				<Button IsEnabled="{Binding IsCurrentNoteSelected}" 
+						Content="Delete" Command="{Binding DeleteNoteCommand}"/>
+			</StackPanel>
+		</Border>
+	</Grid>
 </UserControl>

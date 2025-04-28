@@ -2,6 +2,7 @@ using Autofac;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
 using Avalonia.Styling;
 using Promise.Application.ViewModels;
 using Promise.Domain.Contracts;
@@ -15,6 +16,7 @@ using ReactiveUI;
 using Splat;
 using Splat.Autofac;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Promise.UI
 {
@@ -35,8 +37,9 @@ namespace Promise.UI
             builder.RegisterType<ThemeManager>().SingleInstance();
             // Logger
             builder.RegisterGeneric(typeof(FileLogger<>)).As(typeof(ILogger<>));
-            // Db Context
+            // Database services
             builder.RegisterType<ApplicationContext>().InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(UnitOfWork<>)).As(typeof(IUnitOfWork<>)).InstancePerDependency();
             // Repositories
             builder.RegisterType<NotesRepository>().As<IRepository<Note>>().InstancePerLifetimeScope();
             builder.RegisterType<ReportsRepository>().As<IRepository<Report>>().InstancePerLifetimeScope();
@@ -70,6 +73,8 @@ namespace Promise.UI
             ThemeMode theme = ActualThemeVariant == ThemeVariant.Light ? ThemeMode.Light : ThemeMode.Dark;
 
             manager.Select(theme);
+
+            RxApp.MainThreadScheduler = AvaloniaScheduler.Instance;
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {

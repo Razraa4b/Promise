@@ -1,11 +1,11 @@
 ﻿namespace Promise.Domain.Contracts
 {
-    public interface IRepository<T>
+    public interface IRepository<TEntity>
     {
-        Task Add(T entity);
-        Task Delete(T entity);
-        Task Update(T entity);
-        Task<T?> Get(Func<T, bool> condition);
-        Task<IEnumerable<T>> GetAll(Func<T, bool> condition);
+        Task Add(TEntity entity);
+        Task Delete(TEntity entity);
+        Task Update(TEntity entity);
+        Task<TEntity?> Get(int id);
+        Task<IEnumerable<TEntity>> GetAll();
     }
 }

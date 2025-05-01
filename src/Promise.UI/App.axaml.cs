@@ -16,12 +16,13 @@ using ReactiveUI;
 using Splat;
 using Splat.Autofac;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Promise.UI
 {
     public partial class App : Avalonia.Application
     {
+        private ILogger<App> _logger = null!;
+
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
@@ -49,37 +50,42 @@ namespace Promise.UI
             builder.RegisterType<ReportsViewModel>().AsSelf().AsImplementedInterfaces().SingleInstance();
             // Views
             builder.Register(c => new MainView() { DataContext = c.Resolve<MainViewModel>() }).SingleInstance();
-            builder.Register(c => new NotesView() { DataContext = c.Resolve<NotesViewModel>() });
-            builder.Register(c => new ReportsView() { DataContext = c.Resolve<NotesViewModel>() });
+            builder.Register(c => new NotesView() { DataContext = c.Resolve<NotesViewModel>() }).As<IViewFor<NotesViewModel>>().SingleInstance();
+            builder.Register(c => new ReportsView() { DataContext = c.Resolve<NotesViewModel>() }).As<IViewFor<ReportsViewModel>>().SingleInstance();
             // View Locator
-            builder.RegisterType<ViewLocator>();
+            builder.Register(c => new ViewLocator(c.Resolve<ILifetimeScope>()));
 
             AutofacDependencyResolver resolver = builder.UseAutofacDependencyResolver();
 
             builder.RegisterInstance(resolver);
 
+            IContainer container = builder.Build();
+
             resolver.InitializeSplat();
             resolver.InitializeReactiveUI();
 
-            Locator.SetLocator(resolver);
+            RxApp.MainThreadScheduler = AvaloniaScheduler.Instance;
+
             Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetCallingAssembly());
 
-            IContainer container = builder.Build();
+
+            // Setup logger
+            _logger = container.Resolve<ILogger<App>>();
 
             // Setup View Locator
             Locator.CurrentMutable.RegisterLazySingleton(() => container.Resolve<ViewLocator>(), typeof(IViewLocator));
 
+            // Select theme by system default
             ThemeManager manager = container.Resolve<ThemeManager>();
             ThemeMode theme = ActualThemeVariant == ThemeVariant.Light ? ThemeMode.Light : ThemeMode.Dark;
-
             manager.Select(theme);
 
-            RxApp.MainThreadScheduler = AvaloniaScheduler.Instance;
-
+            _logger.Log(Domain.Enums.LogLevel.Debug, "The application is running, opening the main view...");
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = container.Resolve<MainView>();
             }
+            _logger.Log(Domain.Enums.LogLevel.Debug, "Framework initializetion completed successfuly");
 
             base.OnFrameworkInitializationCompleted();
         }

@@ -7,6 +7,32 @@
 			 xmlns:m="clr-namespace:Promise.Domain.Models;assembly=Promise.Domain"
 			 x:DataType="vm:NotesViewModel"
 			 x:Class="Promise.UI.Views.NotesView">
+	<UserControl.Styles>
+		<Style Selector="TreeView">
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							CornerRadius="{TemplateBinding CornerRadius}">
+						<ScrollViewer AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+									  BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
+									  Background="{TemplateBinding Background}"
+									  HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+									  IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+									  IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
+									  VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+							<DockPanel LastChildFill="True">
+								<ItemsPresenter Name="PART_ItemsPresenter"
+												DockPanel.Dock="Top"
+												Margin="{TemplateBinding Padding}"
+												ItemsPanel="{TemplateBinding ItemsPanel}" />
+							</DockPanel>
+						</ScrollViewer>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+	</UserControl.Styles>
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition MinWidth="150" Width="180"/>
@@ -19,7 +45,8 @@
 			<RowDefinition Height="40"/>
 		</Grid.RowDefinitions>
 
-		<GridSplitter Width="8" Grid.Column="1" Grid.RowSpan="3"/>
+		<GridSplitter Width="8" Grid.Column="1" Grid.RowSpan="3"
+					  Background="Transparent"/>
 		
 		<!-- Notes tree -->
 		<Border Grid.RowSpan="3"
@@ -28,6 +55,13 @@
 			<TreeView Background="Transparent"
 					  ItemsSource="{Binding Notes}"
 					  SelectedItem="{Binding CurrentNote}">
+				<TreeView.ContextMenu>
+					<ContextMenu>
+						<MenuItem Header="Create"/>
+						<MenuItem IsEnabled="{Binding IsCurrentNoteSelected}" 
+								  Header="Delete"/>
+					</ContextMenu>
+				</TreeView.ContextMenu>
 				<TreeView.DataTemplates>
 					<TreeDataTemplate DataType="m:Note" ItemsSource="{Binding Links}">
 						<TextBlock Text="{Binding Title}"/>
@@ -38,7 +72,7 @@
 
 		<!-- Note manipulation panel -->
 		<Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
-				Padding="10 0"
+				Padding="10 0" ZIndex="-1"
 				Background="{DynamicResource HighUniformThemeColor}">
 			<StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
 				<StackPanel.Styles>
@@ -48,9 +82,13 @@
 				</StackPanel.Styles>
 				
 				<Button IsEnabled="{Binding IsCurrentNoteSelected}" 
-						Content="Update" Command="{Binding UpdateNoteCommand}"/>
+						Content="Update" 
+						Command="{Binding UpdateNoteCommand}"
+						CommandParameter="{Binding CurrentNote}"/>
 				<Button IsEnabled="{Binding IsCurrentNoteSelected}" 
-						Content="Delete" Command="{Binding DeleteNoteCommand}"/>
+						Content="Delete" 
+						Command="{Binding DeleteNoteCommand}"
+						CommandParameter="{Binding CurrentNote}"/>
 			</StackPanel>
 		</Border>
 	</Grid>

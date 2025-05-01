@@ -16,7 +16,7 @@ namespace Promise.Infrastructure.Services.Loggers
 
         public void Log(LogLevel level, object? message)
         {
-            string formattedMessage = string.Format("[{0}] {1}:{2}:: {3}", DateTime.Now, level, owner, message);
+            string formattedMessage = string.Format("[{0}] {1}-{2}: {3}", DateTime.Now, level, owner, message);
             using (StreamWriter writer = new StreamWriter(FileName, true))
             {
                 writer.WriteLine(formattedMessage);

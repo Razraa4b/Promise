@@ -7,12 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Exceptions\" />
-    <Folder Include="Exceptions\" />
+    <PackageReference Include="Autofac" Version="8.2.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="8.2.1" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 
 </Project>

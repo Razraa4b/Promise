@@ -8,9 +8,9 @@ namespace Promise.Infrastructure.Database
         public DbSet<Note> Notes { get; set; }
         public DbSet<Report> Reports { get; set; }
 
-        public ApplicationContext()
+        public ApplicationContext(DbContextOptions options) : base(options)
         {
-            //Database.EnsureCreated();
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -9,7 +9,6 @@ namespace Promise.Application.ViewModels
     public class NotesViewModel : BaseViewModel, IRoutableViewModel
     {
         private readonly ILogger<NotesViewModel> _logger;
-        private readonly IUnitOfWork<Note> _unitOfWork;
         private readonly IRepository<Note> _repository;
 
         public ObservableCollection<Note> Notes { get; set; } = new ObservableCollection<Note>();
@@ -36,13 +35,12 @@ namespace Promise.Application.ViewModels
         public ReactiveCommand<Note, Unit> UpdateNoteCommand { get; set; }
         public ReactiveCommand<Note, Unit> DeleteNoteCommand { get; set; }
 
-        public NotesViewModel(IScreen screen, ILogger<NotesViewModel> logger, IUnitOfWork<Note> unitOfWork)
+        public NotesViewModel(IScreen screen, ILogger<NotesViewModel> logger, IRepository<Note> notesRepository)
         {
             HostScreen = screen;
 
             _logger = logger;
-            _unitOfWork = unitOfWork;
-            _repository = _unitOfWork.GetRepository();
+            _repository = notesRepository;
 
             UpdateNoteCommand = ReactiveCommand.Create((Note n) => UpdateNote(n));
             DeleteNoteCommand = ReactiveCommand.Create((Note n) => DeleteNote(n));
@@ -53,7 +51,7 @@ namespace Promise.Application.ViewModels
             try
             {
                 _repository.Update(note);
-                _unitOfWork.SaveChanges();
+                _repository.Save();
             }
             catch (InvalidOperationException)
             {
@@ -66,7 +64,7 @@ namespace Promise.Application.ViewModels
             try
             {
                 _repository.Delete(note);
-                _unitOfWork.SaveChanges();
+                _repository.Save();
             }
             catch (InvalidOperationException)
             {

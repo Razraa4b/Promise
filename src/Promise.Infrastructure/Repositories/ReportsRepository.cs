@@ -25,7 +25,7 @@ namespace Promise.Infrastructure.Repositories
             return Task.CompletedTask;
         }
 
-        public async Task<Report?> Get(int id)
+        public async Task<Report?> GetById(int id)
         {
             return await _context.Reports.FirstOrDefaultAsync(r => r.Id == id);
         }
@@ -39,6 +39,11 @@ namespace Promise.Infrastructure.Repositories
         {
             _context.Reports.Update(entity);
             return Task.CompletedTask;
+        }
+
+        public async Task Save()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

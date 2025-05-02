@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Promise.Domain.Contracts;
+using Promise.Domain.Enums;
 using Promise.Domain.Models;
 using Promise.Infrastructure.Database;
 
@@ -25,7 +26,7 @@ namespace Promise.Infrastructure.Repositories
             return Task.CompletedTask;
         }
 
-        public async Task<Note?> Get(int id)
+        public async Task<Note?> GetById(int id)
         {
             return await _context.Notes.FirstOrDefaultAsync(n => n.Id == id);
         }
@@ -39,6 +40,11 @@ namespace Promise.Infrastructure.Repositories
         {
             _context.Notes.Update(entity);
             return Task.CompletedTask;
+        }
+
+        public async Task Save()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

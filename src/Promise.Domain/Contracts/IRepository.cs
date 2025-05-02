@@ -5,7 +5,8 @@
         Task Add(TEntity entity);
         Task Delete(TEntity entity);
         Task Update(TEntity entity);
-        Task<TEntity?> Get(int id);
+        Task<TEntity?> GetById(int id);
         Task<IEnumerable<TEntity>> GetAll();
+        Task Save();
     }
 }

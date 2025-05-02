@@ -4,6 +4,7 @@ using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using Avalonia.Styling;
+using Microsoft.EntityFrameworkCore;
 using Promise.Application.ViewModels;
 using Promise.Domain.Contracts;
 using Promise.Domain.Enums;
@@ -38,9 +39,14 @@ namespace Promise.UI
             builder.RegisterType<ThemeManager>().SingleInstance();
             // Logger
             builder.RegisterGeneric(typeof(FileLogger<>)).As(typeof(ILogger<>));
-            // Database services
-            builder.RegisterType<ApplicationContext>().InstancePerLifetimeScope();
-            builder.RegisterGeneric(typeof(UnitOfWork<>)).As(typeof(IUnitOfWork<>)).InstancePerDependency();
+            // Database
+            builder.Register(c =>
+            {
+                DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
+                optionsBuilder.UseSqlite("Data Source=app.db");
+                ApplicationContext context = new ApplicationContext(optionsBuilder.Options);
+                return context;
+            }).InstancePerLifetimeScope();
             // Repositories
             builder.RegisterType<NotesRepository>().As<IRepository<Note>>().InstancePerLifetimeScope();
             builder.RegisterType<ReportsRepository>().As<IRepository<Report>>().InstancePerLifetimeScope();
@@ -72,7 +78,7 @@ namespace Promise.UI
             // Setup logger
             _logger = container.Resolve<ILogger<App>>();
 
-            // Setup View Locator
+            // Setup view locator
             Locator.CurrentMutable.RegisterLazySingleton(() => container.Resolve<RxViewLocator>(), typeof(IViewLocator));
 
             // Select theme by system default
@@ -80,6 +86,10 @@ namespace Promise.UI
             ThemeMode theme = ActualThemeVariant == ThemeVariant.Light ? ThemeMode.Light : ThemeMode.Dark;
             manager.Select(theme);
 
+            // Initialize database
+            container.Resolve<ApplicationContext>();
+
+            // Start main view
             _logger.Log(Domain.Enums.LogLevel.Debug, "The application is running, opening the main view...");
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {

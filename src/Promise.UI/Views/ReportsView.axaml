@@ -5,5 +5,5 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Promise.UI.Views.ReportsView">
 	<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
-			   Text="Its Reports View!"/>
+			   Text="Page in development"/>
 </UserControl>

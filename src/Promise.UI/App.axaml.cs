@@ -50,10 +50,10 @@ namespace Promise.UI
             builder.RegisterType<ReportsViewModel>().AsSelf().AsImplementedInterfaces().SingleInstance();
             // Views
             builder.Register(c => new MainView() { DataContext = c.Resolve<MainViewModel>() }).SingleInstance();
-            builder.Register(c => new NotesView() { DataContext = c.Resolve<NotesViewModel>() }).As<IViewFor<NotesViewModel>>().SingleInstance();
-            builder.Register(c => new ReportsView() { DataContext = c.Resolve<NotesViewModel>() }).As<IViewFor<ReportsViewModel>>().SingleInstance();
+            builder.Register(c => new NotesView() { DataContext = c.Resolve<NotesViewModel>() }).AsImplementedInterfaces().SingleInstance();
+            builder.Register(c => new ReportsView() { DataContext = c.Resolve<NotesViewModel>() }).AsImplementedInterfaces().SingleInstance();
             // View Locator
-            builder.Register(c => new ViewLocator(c.Resolve<ILifetimeScope>()));
+            builder.Register(c => new RxViewLocator(c.Resolve<ILifetimeScope>()));
 
             AutofacDependencyResolver resolver = builder.UseAutofacDependencyResolver();
 
@@ -73,7 +73,7 @@ namespace Promise.UI
             _logger = container.Resolve<ILogger<App>>();
 
             // Setup View Locator
-            Locator.CurrentMutable.RegisterLazySingleton(() => container.Resolve<ViewLocator>(), typeof(IViewLocator));
+            Locator.CurrentMutable.RegisterLazySingleton(() => container.Resolve<RxViewLocator>(), typeof(IViewLocator));
 
             // Select theme by system default
             ThemeManager manager = container.Resolve<ThemeManager>();

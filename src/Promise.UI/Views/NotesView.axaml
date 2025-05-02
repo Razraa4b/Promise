@@ -7,32 +7,6 @@
 			 xmlns:m="clr-namespace:Promise.Domain.Models;assembly=Promise.Domain"
 			 x:DataType="vm:NotesViewModel"
 			 x:Class="Promise.UI.Views.NotesView">
-	<UserControl.Styles>
-		<Style Selector="TreeView">
-			<Setter Property="Template">
-				<ControlTemplate>
-					<Border BorderBrush="{TemplateBinding BorderBrush}"
-							BorderThickness="{TemplateBinding BorderThickness}"
-							CornerRadius="{TemplateBinding CornerRadius}">
-						<ScrollViewer AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
-									  BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
-									  Background="{TemplateBinding Background}"
-									  HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
-									  IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
-									  IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
-									  VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
-							<DockPanel LastChildFill="True">
-								<ItemsPresenter Name="PART_ItemsPresenter"
-												DockPanel.Dock="Top"
-												Margin="{TemplateBinding Padding}"
-												ItemsPanel="{TemplateBinding ItemsPanel}" />
-							</DockPanel>
-						</ScrollViewer>
-					</Border>
-				</ControlTemplate>
-			</Setter>
-		</Style>
-	</UserControl.Styles>
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition MinWidth="150" Width="180"/>

@@ -8,17 +8,8 @@ using System;
 
 namespace Promise.UI
 {
-    public class ViewLocator : IDataTemplate, IViewLocator
+    public class ViewLocator : IDataTemplate
     {
-        private readonly ILifetimeScope? _scope = null;
-
-        public ViewLocator() { }
-
-        public ViewLocator(ILifetimeScope scope)
-        {
-            _scope = scope;
-        }
-
         public Control? Build(object? param)
         {
             if (param is null)
@@ -38,22 +29,6 @@ namespace Promise.UI
         public bool Match(object? data)
         {
             return data is BaseViewModel;
-        }
-
-        // For ReactiveUI
-        public IViewFor? ResolveView<T>(T? viewModel, string? contract = null)
-        {
-            if (_scope is null) throw new NullReferenceException(nameof(_scope));
-
-            switch (viewModel)
-            {
-                case NotesViewModel:
-                    return _scope.Resolve<IViewFor<NotesViewModel>>();
-                case ReportsViewModel:
-                    return _scope.Resolve< IViewFor<ReportsViewModel>>();
-                default:
-                    return null;
-            }
         }
     }
 }

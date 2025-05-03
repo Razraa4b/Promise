@@ -9,20 +9,46 @@ namespace Promise.UI.Controls
 {
     public partial class TitleBar : UserControl
     {
+        // Icon Property
+        public static readonly DirectProperty<TitleBar, object?> IconProperty = AvaloniaProperty.RegisterDirect<TitleBar, object?>(
+            nameof(Icon),
+            o => o.Icon,
+            (o, s) => o.Icon = s
+        );
+
+        private object? icon;
+        public object? Icon
+        {
+            get => icon;
+            set => SetAndRaise(IconProperty, ref icon, value);
+        }
+
+        // Title Property
         public static readonly DirectProperty<TitleBar, string> TitleProperty = AvaloniaProperty.RegisterDirect<TitleBar, string>(
             nameof(Title),
             o => o.Title,
             (o, s) => o.Title = s
-            );
+        );
 
-        private string title = "Title Of The Window";
+        private string title = "Window";
         public string Title
         {
             get => title;
-            set
-            {
-                SetAndRaise(TitleProperty, ref title, value);
-            }
+            set => SetAndRaise(TitleProperty, ref title, value);
+        }
+
+        // Can Resize Property
+        public static readonly DirectProperty<TitleBar, bool> CanResizeProperty = AvaloniaProperty.RegisterDirect<TitleBar, bool>(
+            nameof(CanResize),
+            o => o.CanResize,
+            (o, s) => o.CanResize = s
+        );
+
+        private bool canResize = true;
+        public bool CanResize
+        {
+            get => canResize;
+            set => SetAndRaise(CanResizeProperty, ref canResize, value);
         }
 
         public TitleBar()

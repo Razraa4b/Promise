@@ -46,6 +46,7 @@ Used packages sorted by project:
     - Autofac
     - Avalonia
     - Avalonia.Xaml.Behaviors
+    - Avalonia.Svg.Skia
     - Splat.Autofac
 
 ## Usage

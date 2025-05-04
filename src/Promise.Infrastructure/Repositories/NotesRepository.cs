@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Promise.Domain.Contracts;
-using Promise.Domain.Enums;
 using Promise.Domain.Models;
 using Promise.Infrastructure.Database;
 
@@ -33,7 +32,7 @@ namespace Promise.Infrastructure.Repositories
 
         public async Task<IEnumerable<Note>> GetAll()
         {
-            return await _context.Notes.ToListAsync();
+            return await _context.Notes.ToHashSetAsync();
         }
 
         public Task Update(Note entity)

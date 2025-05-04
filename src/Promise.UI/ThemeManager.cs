@@ -1,8 +1,8 @@
-﻿using Promise.Domain.Enums;
-using System.Collections.Generic;
-using System;
+﻿using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using Avalonia.Controls;
+using Promise.Domain.Enums;
+using System;
+using System.Collections.Generic;
 
 namespace Promise.UI
 {
@@ -22,7 +22,7 @@ namespace Promise.UI
 
             if (obj is ResourceDictionary resourceDictionary)
             {
-                if (Avalonia.Application.Current is { })
+                if (Avalonia.Application.Current != null)
                 {
                     foreach (var pair in resourceDictionary)
                     {

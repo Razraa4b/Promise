@@ -1,5 +1,5 @@
-﻿using Promise.Domain.Models;
-using Promise.Domain.Enums;
+﻿using Promise.Domain.Enums;
+using Promise.Domain.Models;
 using ReactiveUI;
 
 namespace Promise.Application.ViewModels

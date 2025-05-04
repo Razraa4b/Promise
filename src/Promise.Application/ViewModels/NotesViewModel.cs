@@ -19,7 +19,7 @@ namespace Promise.Application.ViewModels
             get => currentNote;
             set
             {
-               currentNote = value;
+                currentNote = value;
                 this.RaisePropertyChanged(nameof(CurrentNote));
 
                 if (CurrentNote != null) IsCurrentNoteSelected = true;

@@ -1,4 +1,24 @@
-# Promise Project
+```
+   /$$$$$$$                                   /$$                    
+   | $$__  $$                                 |__/                    
+   | $$  \ $$ /$$$$$$   /$$$$$$  /$$$$$$/$$$$  /$$  /$$$$$$$  /$$$$$$ 
+   | $$$$$$$//$$__  $$ /$$__  $$| $$_  $$_  $$| $$ /$$_____/ /$$__  $$
+   | $$____/| $$  \__/| $$  \ $$| $$ \ $$ \ $$| $$|  $$$$$$ | $$$$$$$$
+   | $$     | $$      | $$  | $$| $$ | $$ | $$| $$ \____  $$| $$_____/
+   | $$     | $$      |  $$$$$$/| $$ | $$ | $$| $$ /$$$$$$$/|  $$$$$$$
+   |__/     |__/       \______/ |__/ |__/ |__/|__/|_______/  \_______/
+
+                      UI Application (Cross platform)
+                                Not Released
+```
+
+<p>
+    <img src="https://img.shields.io/badge/C%23-black?style=flat-square&logo=sharp&logoColor=lightblue&logoSize=auto&label=LANGUAGE&labelColor=gray&color=purple"/>
+    <img src="https://img.shields.io/badge/CROSS-black?style=flat-square&logo=appveyor&logoColor=yellow&logoSize=auto&label=PLATFORM&labelColor=gray&color=blue"/>
+    <img src="https://img.shields.io/badge/CLEAN-black?style=flat-square&logo=appveyor&logoColor=red&logoSize=auto&label=ARCHITECTURE&labelColor=gray&color=green"/>
+</p>
+
+## 📖 Promise Project Overview
 
 this project presents a cross-platform desktop application. It's for taking notes, keeping track of your life and generally trying to help your productivity!
 
@@ -10,25 +30,13 @@ this project presents a cross-platform desktop application. It's for taking note
 
 ## Project Architecture
 
-The project includes a `Clean Architecture` that is broken down into several layers. 
-
-```
-├───Promise.Application
-│
-├───Promise.Domain
-│
-├───Promise.Infrastructure
-│
-└───Promise.UI
-```
-
-- **Promise.Domain** - Promise.Application includes models, enumerations, and service interfaces. It is publicly available to other projects
+- **Promise.Domain** - includes models, enumerations, and service interfaces. It is publicly available to other projects
 
 - **Promise.Infrastructure** - implements almost all interfaces from Promise.Domain and can also add extensions to existing models. Available for Promise.UI only
 
 - **Promise.Application** - includes the use and implementation of even more abstraction over interface implementations from Promise.Domain. The project is only referenced in Promise.UI
 
-- **Promise.UI** - running project, represents the entire User-Interface component. It has references to all projects and can also implement several interfaces from Promise.Domain
+- **Promise.UI** - executable project, represents the entire User-Interface component. It has references to all projects and can also implement several interfaces from Promise.Domain
 
 ## Nuget Packages
 

@@ -7,10 +7,10 @@
 			 xmlns:m="clr-namespace:Promise.Domain.Models;assembly=Promise.Domain"
 			 x:DataType="vm:NotesViewModel"
 			 x:Class="Promise.UI.Views.NotesView">
-	<Grid>
+	<Grid Name="MainGrid">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition MinWidth="150" Width="180"/>
-			<ColumnDefinition Width="8" MaxWidth="8"/>
+			<ColumnDefinition Width="Auto"/>
 			<ColumnDefinition/>
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
@@ -20,7 +20,8 @@
 		</Grid.RowDefinitions>
 
 		<GridSplitter Width="8" Grid.Column="1" Grid.RowSpan="3"
-					  Background="Transparent"/>
+					  Background="Transparent"
+					  DragDelta="GridSplitterDragDelta"/>
 		
 		<!-- Notes tree -->
 		<Border Grid.RowSpan="3"

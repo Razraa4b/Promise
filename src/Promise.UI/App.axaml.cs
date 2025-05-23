@@ -12,7 +12,6 @@ using Promise.Domain.Models;
 using Promise.Infrastructure.Database;
 using Promise.Infrastructure.Repositories;
 using Promise.Infrastructure.Services.Loggers;
-using Promise.UI.Services;
 using Promise.UI.Views;
 using ReactiveUI;
 using Splat;
@@ -51,8 +50,6 @@ namespace Promise.UI
             // Repositories
             builder.RegisterType<NotesRepository>().As<IRepository<Note>>().InstancePerLifetimeScope();
             builder.RegisterType<ReportsRepository>().As<IRepository<Report>>().InstancePerLifetimeScope();
-            // Notification Service
-            builder.RegisterType<MessageBoxService>().As<INotificationService>().InstancePerLifetimeScope();
             // View Models
             builder.RegisterType<MainViewModel>().AsSelf().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<NotesViewModel>().AsSelf().AsImplementedInterfaces().SingleInstance();

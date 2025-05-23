@@ -12,7 +12,7 @@
                                 Not Released
 ```
 
-<p>
+<p align="center">
     <img src="https://img.shields.io/badge/C%23-black?style=flat-square&logo=sharp&logoColor=lightblue&logoSize=auto&label=LANGUAGE&labelColor=gray&color=purple"/>
     <img src="https://img.shields.io/badge/CROSS-black?style=flat-square&logo=appveyor&logoColor=yellow&logoSize=auto&label=PLATFORM&labelColor=gray&color=blue"/>
     <img src="https://img.shields.io/badge/CLEAN-black?style=flat-square&logo=appveyor&logoColor=red&logoSize=auto&label=ARCHITECTURE&labelColor=gray&color=green"/>

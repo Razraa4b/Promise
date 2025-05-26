@@ -13,7 +13,7 @@ namespace Promise.UI.Controls
     public partial class TitleBar : UserControl, IActivatableView
     {
         private Window? hostWindow;
-
+      
         // Icon Property
         public static readonly DirectProperty<TitleBar, object?> IconProperty = AvaloniaProperty.RegisterDirect<TitleBar, object?>(
             nameof(Icon),
@@ -85,7 +85,7 @@ namespace Promise.UI.Controls
         private void MinimizeButtonClick(object? sender, RoutedEventArgs e)
         {
             if (hostWindow == null) return;
-            hostWindow.WindowState = WindowState.Minimized;
+                hostWindow.WindowState = WindowState.Minimized;
         }
 
         private void MaximizeButtonClick(object? sender, RoutedEventArgs e)

@@ -66,7 +66,7 @@
 	<DockPanel>
 		<controls:TitleBar Name="TitleBar" IsHitTestVisible="True" 
 						   Height="28" DockPanel.Dock="Top" 
-						   Title="Promise App" Grid.ColumnSpan="5"/>
+						   Title="Promise App"/>
 		
 		<!-- View selection panel for navigation -->
 		<TabControl Name="SelectionControl" DockPanel.Dock="Top" HorizontalAlignment="Center">

@@ -14,7 +14,6 @@ namespace Promise.UI
             { ThemeMode.Dark, new Uri("avares://Promise.UI/Themes/DarkTheme.axaml") }
         };
 
-
         public void Select(ThemeMode theme)
         {
             Uri uri = themesUri[theme];

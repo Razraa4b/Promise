@@ -8,9 +8,9 @@
 	<SolidColorBrush x:Key="FontLightThemeColor" Color="#e0e0e0"/>
 
 	<!-- Uniform colors -->
-	<SolidColorBrush x:Key="HighUniformThemeColor" Color="#070707"/>
-	<SolidColorBrush x:Key="MediumUniformThemeColor" Color="#141414"/>
-	<SolidColorBrush x:Key="LowUniformThemeColor" Color="#202020"/>
+	<SolidColorBrush x:Key="HighUniformThemeColor" Color="#141414"/>
+	<SolidColorBrush x:Key="MediumUniformThemeColor" Color="#181818"/>
+	<SolidColorBrush x:Key="LowUniformThemeColor" Color="#252525"/>
 
 	<!-- Contrast colors -->
 	<SolidColorBrush x:Key="HighContrastThemeColor" Color="#f0f0f0"/>

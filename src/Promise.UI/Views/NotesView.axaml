@@ -29,12 +29,14 @@
 				CornerRadius="0 15 0 0">
 			<TreeView Background="Transparent"
 					  ItemsSource="{Binding Notes}"
-					  SelectedItem="{Binding CurrentNote}">
+					  SelectedItem="{Binding SelectedNote}">
 				<TreeView.ContextMenu>
 					<ContextMenu>
-						<MenuItem Header="Create"/>
-						<MenuItem IsEnabled="{Binding IsCurrentNoteSelected}" 
-								  Header="Delete"/>
+						<MenuItem Header="Create"
+								  Command="{Binding CreateNoteCommand}"/>
+						<MenuItem Name="DeleteButton"
+								  Header="Delete"
+								  Command="{Binding DeleteNoteCommand}"/>
 					</ContextMenu>
 				</TreeView.ContextMenu>
 				<TreeView.DataTemplates>
@@ -55,15 +57,6 @@
 						<Setter Property="Margin" Value="3 0"/>
 					</Style>
 				</StackPanel.Styles>
-				
-				<Button IsEnabled="{Binding IsCurrentNoteSelected}" 
-						Content="Update" 
-						Command="{Binding UpdateNoteCommand}"
-						CommandParameter="{Binding CurrentNote}"/>
-				<Button IsEnabled="{Binding IsCurrentNoteSelected}" 
-						Content="Delete" 
-						Command="{Binding DeleteNoteCommand}"
-						CommandParameter="{Binding CurrentNote}"/>
 			</StackPanel>
 		</Border>
 	</Grid>

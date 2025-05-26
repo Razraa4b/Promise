@@ -1,75 +1,45 @@
-﻿using Promise.Domain.Contracts;
+﻿using Avalonia.Threading;
+using DynamicData;
+using Promise.Domain.Contracts;
 using Promise.Domain.Models;
 using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Reactive;
+using System.Reactive.Linq;
 
 namespace Promise.Application.ViewModels
 {
     public class NotesViewModel : BaseViewModel, IRoutableViewModel
     {
         private readonly ILogger<NotesViewModel> _logger;
-        private readonly IRepository<Note> _repository;
-
-        public ObservableCollection<Note> Notes { get; set; } = new ObservableCollection<Note>();
-
-        private Note? currentNote;
-        public Note? CurrentNote
-        {
-            get => currentNote;
-            set
-            {
-                currentNote = value;
-                this.RaisePropertyChanged(nameof(CurrentNote));
-
-                if (CurrentNote != null) IsCurrentNoteSelected = true;
-                else IsCurrentNoteSelected = false;
-                this.RaisePropertyChanged(nameof(IsCurrentNoteSelected));
-            }
-        }
-        public bool IsCurrentNoteSelected { get; set; } = false;
+        private readonly IRepository<Note> _noteRepository;
 
         public string? UrlPathSegment { get; } = "/notes";
         public IScreen HostScreen { get; }
 
-        public ReactiveCommand<Note, Unit> UpdateNoteCommand { get; set; }
-        public ReactiveCommand<Note, Unit> DeleteNoteCommand { get; set; }
+        public ObservableCollection<Note> Notes { get; set; } = new ObservableCollection<Note>();
 
-        public NotesViewModel(IScreen screen, ILogger<NotesViewModel> logger, IRepository<Note> notesRepository)
+        private Note? selectedNote;
+        public Note? SelectedNote
+        {
+            get => selectedNote;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref selectedNote, value);
+            }
+        }
+
+        public ReactiveCommand<Unit, Unit> CreateNoteCommand { get; }
+        public ReactiveCommand<Unit, Unit> DeleteNoteCommand { get; }
+
+        public NotesViewModel(IScreen screen, ILogger<NotesViewModel> logger, IRepository<Note> noteRepository)
         {
             HostScreen = screen;
-
             _logger = logger;
-            _repository = notesRepository;
+            _noteRepository = noteRepository;
 
-            UpdateNoteCommand = ReactiveCommand.Create((Note n) => UpdateNote(n));
-            DeleteNoteCommand = ReactiveCommand.Create((Note n) => DeleteNote(n));
-        }
-
-        private void UpdateNote(Note note)
-        {
-            try
-            {
-                _repository.Update(note);
-                _repository.Save();
-            }
-            catch (InvalidOperationException)
-            {
-                _logger.Log(Domain.Enums.LogLevel.Error, "Error when updating data in UpdateNote() method");
-            }
-        }
-
-        private void DeleteNote(Note note)
-        {
-            try
-            {
-                _repository.Delete(note);
-                _repository.Save();
-            }
-            catch (InvalidOperationException)
-            {
-                _logger.Log(Domain.Enums.LogLevel.Error, "Error when deleting data in DeleteNote() method");
-            }
+            CreateNoteCommand = ReactiveCommand.Create(() => { /* TODO */ });
+            DeleteNoteCommand = ReactiveCommand.Create(() => { /* TODO */ });
         }
     }
 }

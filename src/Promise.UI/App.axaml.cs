@@ -12,6 +12,7 @@ using Promise.Domain.Models;
 using Promise.Infrastructure.Database;
 using Promise.Infrastructure.Repositories;
 using Promise.Infrastructure.Services.Loggers;
+using Promise.UI.Services;
 using Promise.UI.Views;
 using ReactiveUI;
 using Splat;
@@ -55,9 +56,11 @@ namespace Promise.UI
             builder.RegisterType<NotesViewModel>().AsSelf().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<ReportsViewModel>().AsSelf().AsImplementedInterfaces().SingleInstance();
             // Views
-            builder.Register(c => new MainView() { DataContext = c.Resolve<MainViewModel>() }).SingleInstance();
+            builder.Register(c => new MainView() { DataContext = c.Resolve<MainViewModel>() }).AsSelf().AsImplementedInterfaces().SingleInstance();
             builder.Register(c => new NotesView() { DataContext = c.Resolve<NotesViewModel>() }).AsImplementedInterfaces().SingleInstance();
             builder.Register(c => new ReportsView() { DataContext = c.Resolve<NotesViewModel>() }).AsImplementedInterfaces().SingleInstance();
+            // View Manager
+            builder.RegisterType<ViewManager>().As<IViewManager>().InstancePerLifetimeScope();
             // View Locator
             builder.Register(c => new RxViewLocator(c.Resolve<ILifetimeScope>()));
 
@@ -89,13 +92,12 @@ namespace Promise.UI
             // Initialize database
             container.Resolve<ApplicationContext>();
 
-            // Start main view
-            _logger.Log(Domain.Enums.LogLevel.Debug, "The application is running, opening the main view...");
+            _logger.Log(Domain.Enums.LogLevel.Debug, "Starting the main view...");
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = container.Resolve<MainView>();
             }
-            _logger.Log(Domain.Enums.LogLevel.Debug, "Framework initializetion completed successfuly");
+            _logger.Log(Domain.Enums.LogLevel.Debug, "Framework initialization completed successful");
 
             base.OnFrameworkInitializationCompleted();
         }

@@ -10,7 +10,7 @@ namespace Promise.Application.ViewModels
 
         public RoutingState Router { get; } = new RoutingState();
 
-        public ReactiveCommand<string, IRoutableViewModel?> NavigateViewCommand { get; set; }
+        public ReactiveCommand<string, IRoutableViewModel?> NavigateViewCommand { get; }
 
         public MainViewModel(ILifetimeScope scope)
         {

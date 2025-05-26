@@ -9,6 +9,8 @@
         public DateTime CreatedTime { get; set; }
         public DateTime LastChangedTime { get; set; }
 
+        public Report() : this("", "", "") { }
+
         public Report(string title, string summary, string conclusion)
         {
             Title = title;

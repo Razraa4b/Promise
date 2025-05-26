@@ -19,10 +19,9 @@ namespace Promise.Infrastructure.Repositories
             await _context.Notes.AddAsync(entity);
         }
 
-        public Task Delete(Note entity)
+        public async Task Delete(Note entity)
         {
-            _context.Notes.Remove(entity);
-            return Task.CompletedTask;
+            await Task.Run(() => _context.Notes.Remove(entity));
         }
 
         public async Task<Note?> GetById(int id)
@@ -35,10 +34,9 @@ namespace Promise.Infrastructure.Repositories
             return await _context.Notes.ToHashSetAsync();
         }
 
-        public Task Update(Note entity)
+        public async Task Update(Note entity)
         {
-            _context.Notes.Update(entity);
-            return Task.CompletedTask;
+            await Task.Run(() => _context.Notes.Update(entity));
         }
 
         public async Task Save()

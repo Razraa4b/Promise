@@ -6,8 +6,10 @@
         public string Title { get; set; }
         public string Content { get; set; }
         public List<Note> Links { get; set; } = new List<Note>();
-        public DateTime CreatedTime { get; set; }
+        public DateTime CreationTime { get; set; }
         public DateTime LastChangedTime { get; set; }
+
+        public Note() : this("", "") { }
 
         public Note(string title, string content)
         {

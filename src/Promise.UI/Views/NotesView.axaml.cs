@@ -6,12 +6,14 @@ using Avalonia.VisualTree;
 using Promise.Application.ViewModels;
 using ReactiveUI;
 using System;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
 
 namespace Promise.UI.Views
 {
     public partial class NotesView : ReactiveUserControl<NotesViewModel>
     {
-        private const double EdgeOffset = 20;
+        private const double EdgeOffset = 10;
         private Window? hostWindow;
 
         public NotesView()
@@ -25,6 +27,11 @@ namespace Promise.UI.Views
                 {
                     hostWindow.Resized += HostWindowResized;
                 }
+
+                this.WhenAnyValue(v => v.ViewModel!.SelectedNote)
+                    .Select(note => note != null)
+                    .BindTo(this, v => v.DeleteButton.IsEnabled)
+                    .DisposeWith(disposables);
             });
         }
 
@@ -34,6 +41,7 @@ namespace Promise.UI.Views
             double maxWidth = e.ClientSize.Width - EdgeOffset;
             double newWidth = Math.Min(currentWidth, maxWidth);
 
+            // Resize the column if it exceeds the limits of available space in the window
             if (Math.Abs(newWidth - currentWidth) > 0)
             {
                 MainGrid.ColumnDefinitions[0].Width = new GridLength(newWidth);
@@ -47,6 +55,7 @@ namespace Promise.UI.Views
                 double maxWidth = hostWindow.ClientSize.Width - EdgeOffset;
                 double newWidth = MainGrid.ColumnDefinitions[0].Width.Value + e.Vector.X;
 
+                // Resize the column if there is still space in the window
                 if (newWidth > 0 && newWidth <= maxWidth)
                 {
                     MainGrid.ColumnDefinitions[0].Width = new GridLength(newWidth);

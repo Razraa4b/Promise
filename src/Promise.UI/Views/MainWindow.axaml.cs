@@ -4,9 +4,9 @@ using System;
 
 namespace Promise.UI.Views
 {
-    public partial class MainView : ReactiveWindow<MainViewModel>
+    public partial class MainWindow : ReactiveWindow<MainViewModel>
     {
-        public MainView()
+        public MainWindow()
         {
             InitializeComponent();
 

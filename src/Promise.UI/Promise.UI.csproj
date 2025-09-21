@@ -49,7 +49,7 @@
     <Compile Update="Controls\TitleBar.axaml.cs">
       <DependentUpon>TitleBar.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\MainView.axaml.cs">
+    <Compile Update="Views\MainWindow.axaml.cs">
       <DependentUpon>MainView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>

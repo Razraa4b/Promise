@@ -7,12 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="8.2.1" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="11.3.0" />
+    <AvaloniaXaml Remove="Exceptions\**" />
+    <Compile Remove="Exceptions\**" />
+    <EmbeddedResource Remove="Exceptions\**" />
+    <None Remove="Exceptions\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Exceptions\" />
+    <PackageReference Include="Autofac" Version="8.2.1" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.3.0" />
   </ItemGroup>
 
 </Project>

@@ -107,6 +107,7 @@
 				<RowDefinition/>
 			</Grid.RowDefinitions>
 			
+			<!-- Control that showing the current view -->
 			<rxui:RoutedViewHost Grid.RowSpan="5" Grid.ColumnSpan="5" 
 								 Router="{Binding Router}"/>
 		</Grid>

@@ -1,11 +1,9 @@
-﻿using Avalonia.Threading;
-using DynamicData;
+﻿using Microsoft.Extensions.Logging;
 using Promise.Domain.Contracts;
 using Promise.Domain.Models;
 using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Reactive;
-using System.Reactive.Linq;
 
 namespace Promise.Application.ViewModels
 {

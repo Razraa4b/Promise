@@ -4,6 +4,7 @@ using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using Avalonia.Styling;
+using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Promise.Application.ViewModels;
 using Promise.Domain.Contracts;
@@ -11,7 +12,6 @@ using Promise.Domain.Enums;
 using Promise.Domain.Models;
 using Promise.Infrastructure.Database;
 using Promise.Infrastructure.Repositories;
-using Promise.Infrastructure.Services.Loggers;
 using Promise.UI.Views;
 using ReactiveUI;
 using Splat;
@@ -35,11 +35,23 @@ namespace Promise.UI
 
             ContainerBuilder builder = new ContainerBuilder();
 
+            #region Services
             // Theme Manager
             builder.RegisterType<ThemeManager>().SingleInstance();
+            // Logger factory
+            builder.Register(c => 
+            {
+                ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
+                {
+                    builder.AddConsole();
+                    builder.AddDebug();
+                });
+                return loggerFactory;
+            }).As<ILoggerFactory>().SingleInstance();
+
             // Logger
-            builder.RegisterGeneric(typeof(FileLogger<>)).As(typeof(ILogger<>));
-            // Database
+            builder.RegisterGeneric(typeof(Logger<>)).As(typeof(ILogger<>)).SingleInstance();
+            // Database context
             builder.Register(c =>
             {
                 DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
@@ -60,6 +72,7 @@ namespace Promise.UI
             builder.Register(c => new ReportsView() { DataContext = c.Resolve<NotesViewModel>() }).AsImplementedInterfaces().SingleInstance();
             // View Locator
             builder.Register(c => new RxViewLocator(c.Resolve<ILifetimeScope>()));
+            #endregion
 
             AutofacDependencyResolver resolver = builder.UseAutofacDependencyResolver();
 
@@ -89,14 +102,14 @@ namespace Promise.UI
             // Initialize database
             container.Resolve<ApplicationContext>();
 
-            _logger.Log(Domain.Enums.LogLevel.Debug, "Starting the main view...");
+            _logger.LogDebug("Opening the main view...");
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = container.Resolve<MainWindow>();
             }
-            _logger.Log(Domain.Enums.LogLevel.Debug, "Framework initialization completed successful");
 
             base.OnFrameworkInitializationCompleted();
+            _logger.LogDebug("Framework initialization completed successful");
         }
     }
 }

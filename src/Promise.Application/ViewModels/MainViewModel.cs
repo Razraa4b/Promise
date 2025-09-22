@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Promise.Domain.Contracts;
 using ReactiveUI;
 using System.Reactive.Disposables;
 
@@ -18,7 +19,7 @@ namespace Promise.Application.ViewModels
 
             NavigateViewCommand = ReactiveCommand.CreateFromObservable<string, IRoutableViewModel?>((string param) =>
             {
-                string viewModelName = "Promise.Application.ViewModels." + param.Replace(" ", "") + "ViewModel";
+                string viewModelName = "Promise.Application.ViewModels." + param + "ViewModel";
 
                 Type? type = Type.GetType(viewModelName);
 

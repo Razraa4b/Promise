@@ -5,11 +5,11 @@ using Promise.Infrastructure.Database;
 
 namespace Promise.Infrastructure.Repositories
 {
-    public class NotesRepository : IRepository<Note>
+    public class NoteRepository : INoteRepository
     {
         private readonly ApplicationContext _context;
 
-        public NotesRepository(ApplicationContext context)
+        public NoteRepository(ApplicationContext context)
         {
             _context = context;
         }
@@ -29,19 +29,19 @@ namespace Promise.Infrastructure.Repositories
             return await _context.Notes.FirstOrDefaultAsync(n => n.Id == id);
         }
 
-        public async Task<IEnumerable<Note>> GetAll()
+        public async Task<Note?> GetByTitle(string title)
         {
-            return await _context.Notes.ToHashSetAsync();
+            return await _context.Notes.FirstOrDefaultAsync(n => n.Title == title);
+        }
+
+        public Task<IQueryable<Note>> GetAll()
+        {
+            return Task.FromResult(_context.Notes.AsQueryable());
         }
 
         public async Task Update(Note entity)
         {
             await Task.Run(() => _context.Notes.Update(entity));
-        }
-
-        public async Task Save()
-        {
-            await _context.SaveChangesAsync();
         }
     }
 }

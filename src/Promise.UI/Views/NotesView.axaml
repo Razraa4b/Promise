@@ -39,11 +39,6 @@
 								  Command="{Binding DeleteNoteCommand}"/>
 					</ContextMenu>
 				</TreeView.ContextMenu>
-				<TreeView.DataTemplates>
-					<TreeDataTemplate DataType="m:Note" ItemsSource="{Binding Links}">
-						<TextBlock Text="{Binding Title}"/>
-					</TreeDataTemplate>
-				</TreeView.DataTemplates>
 			</TreeView>
 		</Border>
 

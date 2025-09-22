@@ -5,11 +5,11 @@ using Promise.Infrastructure.Database;
 
 namespace Promise.Infrastructure.Repositories
 {
-    public class ReportsRepository : IRepository<Report>
+    public class ReportRepository : IReportRepository
     {
         private readonly ApplicationContext _context;
 
-        public ReportsRepository(ApplicationContext context)
+        public ReportRepository(ApplicationContext context)
         {
             _context = context;
         }
@@ -30,20 +30,20 @@ namespace Promise.Infrastructure.Repositories
             return await _context.Reports.FirstOrDefaultAsync(r => r.Id == id);
         }
 
-        public async Task<IEnumerable<Report>> GetAll()
+        public async Task<Report?> GetByTitle(string title)
         {
-            return await _context.Reports.ToListAsync();
+            return await _context.Reports.FirstOrDefaultAsync(r => r.Title == title);
+        }
+
+        public Task<IQueryable<Report>> GetAll()
+        {
+            return Task.FromResult(_context.Reports.AsQueryable());
         }
 
         public Task Update(Report entity)
         {
             _context.Reports.Update(entity);
             return Task.CompletedTask;
-        }
-
-        public async Task Save()
-        {
-            await _context.SaveChangesAsync();
         }
     }
 }

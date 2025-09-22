@@ -48,8 +48,8 @@ namespace Promise.UI
                 return context;
             }).InstancePerLifetimeScope();
             // Repositories
-            builder.RegisterType<NotesRepository>().As<IRepository<Note>>().InstancePerLifetimeScope();
-            builder.RegisterType<ReportsRepository>().As<IRepository<Report>>().InstancePerLifetimeScope();
+            builder.RegisterType<NoteRepository>().As<IRepository<Note>>().InstancePerLifetimeScope();
+            builder.RegisterType<ReportRepository>().As<IRepository<Report>>().InstancePerLifetimeScope();
             // View Models
             builder.RegisterType<MainViewModel>().AsSelf().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<NotesViewModel>().AsSelf().AsImplementedInterfaces().SingleInstance();

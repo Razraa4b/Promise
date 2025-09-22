@@ -10,7 +10,7 @@ namespace Promise.UI.Views
         {
             InitializeComponent();
 
-            if (OperatingSystem.IsLinux())
+            if (OperatingSystem.IsLinux() || OperatingSystem.IsMacOS())
             {
                 TitleBar.IsVisible = false;
             }

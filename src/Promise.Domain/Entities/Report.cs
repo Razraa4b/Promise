@@ -17,10 +17,5 @@
             Summary = summary;
             Conclusion = conclusion;
         }
-
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode();
-        }
     }
 }

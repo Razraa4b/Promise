@@ -5,7 +5,8 @@
         INoteRepository NoteRepository { get; }
         IReportRepository ReportRepository { get; }
 
-        Task Commit();
-        Task Rollback();
+        Task Begin(CancellationToken token = default);
+        Task Commit(CancellationToken token = default);
+        Task Rollback(CancellationToken token = default);
     }
 }

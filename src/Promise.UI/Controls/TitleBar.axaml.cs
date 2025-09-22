@@ -2,18 +2,16 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
-using Avalonia.ReactiveUI;
 using Avalonia.VisualTree;
 using ReactiveUI;
 using System;
-using System.Threading.Tasks;
 
 namespace Promise.UI.Controls
 {
     public partial class TitleBar : UserControl, IActivatableView
     {
         private Window? hostWindow;
-      
+
         // Icon Property
         public static readonly DirectProperty<TitleBar, object?> IconProperty = AvaloniaProperty.RegisterDirect<TitleBar, object?>(
             nameof(Icon),
@@ -63,7 +61,7 @@ namespace Promise.UI.Controls
             this.WhenActivated(disposables =>
             {
                 hostWindow = this.GetVisualRoot() as Window;
-                if(hostWindow != null)
+                if (hostWindow != null)
                 {
                     hostWindow.GetObservable(Window.WindowStateProperty).Subscribe(s =>
                     {
@@ -85,7 +83,7 @@ namespace Promise.UI.Controls
         private void MinimizeButtonClick(object? sender, RoutedEventArgs e)
         {
             if (hostWindow == null) return;
-                hostWindow.WindowState = WindowState.Minimized;
+            hostWindow.WindowState = WindowState.Minimized;
         }
 
         private void MaximizeButtonClick(object? sender, RoutedEventArgs e)

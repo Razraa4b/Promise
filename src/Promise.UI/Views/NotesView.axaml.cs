@@ -1,4 +1,3 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.ReactiveUI;
@@ -23,11 +22,12 @@ namespace Promise.UI.Views
             this.WhenActivated(disposables =>
             {
                 hostWindow = this.GetVisualRoot() as Window;
-                if(hostWindow != null)
+                if (hostWindow != null)
                 {
                     hostWindow.Resized += HostWindowResized;
                 }
 
+                // Bindings
                 this.WhenAnyValue(v => v.ViewModel!.SelectedNote)
                     .Select(note => note != null)
                     .BindTo(this, v => v.DeleteButton.IsEnabled)

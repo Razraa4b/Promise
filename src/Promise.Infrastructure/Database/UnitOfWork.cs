@@ -7,7 +7,7 @@ namespace Promise.Infrastructure.Database
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationContext _context;
-        private IDbContextTransaction _transaction;
+        private IDbContextTransaction? _transaction;
 
         public INoteRepository NoteRepository { get; init; }
         public IReportRepository ReportRepository { get; init; }
@@ -18,18 +18,33 @@ namespace Promise.Infrastructure.Database
 
             NoteRepository = new NoteRepository(context);
             ReportRepository = new ReportRepository(context);
-
-            _transaction = _context.Database.BeginTransaction();
         }
 
-        public async Task Commit()
+        public async Task Begin(CancellationToken token = default)
         {
-            await _transaction.CommitAsync();
+            if (_transaction == null)
+            {
+                _transaction = await _context.Database.BeginTransactionAsync(token);
+            }
+            else throw new InvalidOperationException("Transaction already begun");
         }
 
-        public async Task Rollback()
+        public async Task Commit(CancellationToken token = default)
         {
-            await _transaction.RollbackAsync();
+            if (_transaction == null) return;
+
+            await _transaction.CommitAsync(token);
+            await _transaction.DisposeAsync();
+            _transaction = null;
+        }
+
+        public async Task Rollback(CancellationToken token = default)
+        {
+            if (_transaction == null) return;
+
+            await _transaction.RollbackAsync(token);
+            await _transaction.DisposeAsync();
+            _transaction = null;
         }
     }
 }

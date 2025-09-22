@@ -7,7 +7,7 @@ using System.Reactive;
 
 namespace Promise.Application.ViewModels
 {
-    public class NotesViewModel : BaseViewModel, IRoutableViewModel
+    public class NotesViewModel : ViewModelBase, IRoutableViewModel
     {
         private readonly ILogger<NotesViewModel> _logger;
         private readonly IRepository<Note> _noteRepository;
@@ -21,10 +21,7 @@ namespace Promise.Application.ViewModels
         public Note? SelectedNote
         {
             get => selectedNote;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref selectedNote, value);
-            }
+            set => this.RaiseAndSetIfChanged(ref selectedNote, value);
         }
 
         public ReactiveCommand<Unit, Unit> CreateNoteCommand { get; }

@@ -4,8 +4,8 @@ using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using Avalonia.Styling;
-using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Promise.Application.ViewModels;
 using Promise.Domain.Contracts;
 using Promise.Domain.Enums;
@@ -39,7 +39,7 @@ namespace Promise.UI
             // Theme Manager
             builder.RegisterType<ThemeManager>().SingleInstance();
             // Logger factory
-            builder.Register(c => 
+            builder.Register(c =>
             {
                 ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
                 {

@@ -1,12 +1,16 @@
 ﻿using Autofac;
-using Promise.Domain.Contracts;
 using ReactiveUI;
 using System.Reactive.Disposables;
 
 namespace Promise.Application.ViewModels
 {
-    public class MainViewModel : BaseViewModel, IScreen
+    public class MainViewModel : ViewModelBase, IScreen
     {
+        private readonly Dictionary<string, Type> _viewModelTypes = new()
+        {
+            ["Notes"] = typeof(NotesViewModel),
+            ["Reports"] = typeof(ReportsViewModel)
+        };
         private readonly ILifetimeScope _scope;
 
         public RoutingState Router { get; } = new RoutingState();
@@ -17,26 +21,27 @@ namespace Promise.Application.ViewModels
         {
             _scope = scope;
 
-            NavigateViewCommand = ReactiveCommand.CreateFromObservable<string, IRoutableViewModel?>((string param) =>
-            {
-                string viewModelName = "Promise.Application.ViewModels." + param + "ViewModel";
-
-                Type? type = Type.GetType(viewModelName);
-
-                if (type != null)
-                {
-                    _scope.TryResolve(type, out object? instance);
-
-                    if (instance is IRoutableViewModel viewModel)
-                        return Router.Navigate.Execute(viewModel);
-                }
-                throw new ArgumentException(null, nameof(param));
-            });
+            NavigateViewCommand = ReactiveCommand.CreateFromObservable<string, IRoutableViewModel?>(
+                param => NavigateToView(param)
+            );
 
             this.WhenActivated((CompositeDisposable disposables) =>
             {
                 NavigateViewCommand.Execute("Notes");
             });
+        }
+
+        private IObservable<IRoutableViewModel?> NavigateToView(string viewName)
+        {
+            if (_viewModelTypes.TryGetValue(viewName, out Type? viewModelType))
+            {
+                if (_scope.TryResolve(viewModelType, out object? instance) &&
+                    instance is IRoutableViewModel viewModel)
+                {
+                    return Router.Navigate.Execute(viewModel);
+                }
+            }
+            throw new NullReferenceException("Navigate to `null` view is impossible");
         }
     }
 }

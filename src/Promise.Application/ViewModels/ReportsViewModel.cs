@@ -2,7 +2,7 @@
 
 namespace Promise.Application.ViewModels
 {
-    public class ReportsViewModel : BaseViewModel, IRoutableViewModel
+    public class ReportsViewModel : ViewModelBase, IRoutableViewModel
     {
         public string? UrlPathSegment { get; } = "/reports";
         public IScreen HostScreen { get; }

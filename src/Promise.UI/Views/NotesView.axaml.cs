@@ -47,20 +47,5 @@ namespace Promise.UI.Views
                 MainGrid.ColumnDefinitions[0].Width = new GridLength(newWidth);
             }
         }
-
-        private void GridSplitterDragDelta(object? sender, VectorEventArgs e)
-        {
-            if (hostWindow != null)
-            {
-                double maxWidth = hostWindow.ClientSize.Width - EdgeOffset;
-                double newWidth = MainGrid.ColumnDefinitions[0].Width.Value + e.Vector.X;
-
-                // Resize the column if there is still space in the window
-                if (newWidth > 0 && newWidth <= maxWidth)
-                {
-                    MainGrid.ColumnDefinitions[0].Width = new GridLength(newWidth);
-                }
-            }
-        }
     }
 }

@@ -26,33 +26,30 @@
 		<!-- Notes tree -->
 		<Border Grid.RowSpan="3"
 				Background="{DynamicResource MediumUniformThemeColor}"
-				CornerRadius="0 15 0 0">
-			<TreeView Background="Transparent"
-					  ItemsSource="{Binding Notes}"
-					  SelectedItem="{Binding SelectedNote}">
-				<TreeView.ContextMenu>
-					<ContextMenu>
-						<MenuItem Header="Create"
-								  Command="{Binding CreateNoteCommand}"/>
-						<MenuItem Name="DeleteButton"
-								  Header="Delete"
-								  Command="{Binding DeleteNoteCommand}"/>
-					</ContextMenu>
-				</TreeView.ContextMenu>
-			</TreeView>
-		</Border>
+				CornerRadius="0 10 0 0">
+			<Grid>
+				<TreeView Background="Transparent"
+						  ItemsSource="{Binding Notes}"
+						  SelectedItem="{Binding SelectedNote}">
+					<TreeView.ContextMenu>
+						<ContextMenu>
+							<MenuItem Header="Create"
+									  Command="{Binding CreateNoteCommand}"/>
+							<MenuItem Name="DeleteButton"
+									  Header="Delete"
+									  Command="{Binding DeleteNoteCommand}"/>
+						</ContextMenu>
+					</TreeView.ContextMenu>
+				</TreeView>
 
-		<!-- Note manipulation panel -->
-		<Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
-				Padding="10 0" ZIndex="-1"
-				Background="{DynamicResource HighUniformThemeColor}">
-			<StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
-				<StackPanel.Styles>
-					<Style Selector="Button">
-						<Setter Property="Margin" Value="3 0"/>
-					</Style>
-				</StackPanel.Styles>
-			</StackPanel>
+				<TextBlock IsVisible="{Binding !Notes.Count}"
+						   VerticalAlignment="Center"
+						   HorizontalAlignment="Center"
+						   TextWrapping="Wrap"
+						   TextAlignment="Center">
+					It's so empty
+				</TextBlock>
+			</Grid>
 		</Border>
 	</Grid>
 </UserControl>

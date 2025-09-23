@@ -1,6 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-	<SolidColorBrush x:Key="ThemeColor" Color="#000000"/>
+	<SolidColorBrush x:Key="SolidThemeColor" Color="#000000"/>
 
 	<!-- Colors for font -->
 	<SolidColorBrush x:Key="FontStrongThemeColor" Color="#ffffff"/>

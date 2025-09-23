@@ -26,12 +26,6 @@ namespace Promise.UI.Views
                 {
                     hostWindow.Resized += HostWindowResized;
                 }
-
-                // Bindings
-                this.WhenAnyValue(v => v.ViewModel!.SelectedNote)
-                    .Select(note => note != null)
-                    .BindTo(this, v => v.DeleteButton.IsEnabled)
-                    .DisposeWith(disposables);
             });
         }
 

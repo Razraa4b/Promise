@@ -25,7 +25,8 @@
 		<!-- Notes tree -->
 		<Border Grid.RowSpan="3"
 				Background="{DynamicResource MediumUniformThemeColor}"
-				CornerRadius="0 10 0 0">
+				Opacity="0.7"
+				CornerRadius="0 10 10 0">
 			<Grid>
 				<TreeView Background="Transparent"
 						  ItemsSource="{Binding Notes}"
@@ -36,7 +37,9 @@
 									  Command="{Binding CreateNoteCommand}"/>
 							<MenuItem Name="DeleteButton"
 									  Header="Delete"
-									  Command="{Binding DeleteNoteCommand}"/>
+									  Command="{Binding DeleteNoteCommand}"
+									  IsEnabled="{Binding SelectedNote, UpdateSourceTrigger=PropertyChanged,
+												  Converter={x:Static ObjectConverters.IsNotNull}}}"/>
 						</ContextMenu>
 					</TreeView.ContextMenu>
 				</TreeView>

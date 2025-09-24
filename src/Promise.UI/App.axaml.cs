@@ -80,9 +80,6 @@ namespace Promise.UI
 
             IContainer container = builder.Build();
 
-            resolver.InitializeSplat();
-            resolver.InitializeReactiveUI();
-
             RxApp.MainThreadScheduler = AvaloniaScheduler.Instance;
 
             Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetCallingAssembly());

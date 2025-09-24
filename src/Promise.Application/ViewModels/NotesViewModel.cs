@@ -3,6 +3,7 @@ using Promise.Domain.Contracts;
 using Promise.Domain.Models;
 using ReactiveUI;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Reactive;
 
 namespace Promise.Application.ViewModels
@@ -33,8 +34,18 @@ namespace Promise.Application.ViewModels
             _logger = logger;
             _noteRepository = noteRepository;
 
-            CreateNoteCommand = ReactiveCommand.Create(() => { /* TODO */ });
-            DeleteNoteCommand = ReactiveCommand.Create(() => { /* TODO */ });
+            CreateNoteCommand = ReactiveCommand.CreateFromTask(CreateNote);
+            DeleteNoteCommand = ReactiveCommand.CreateFromTask(DeleteNote);
+        }
+
+        private Task CreateNote()
+        {
+            throw new NotImplementedException();
+        }
+
+        private Task DeleteNote()
+        {
+            throw new NotImplementedException();
         }
     }
 }

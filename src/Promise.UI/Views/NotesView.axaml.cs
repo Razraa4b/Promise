@@ -1,12 +1,9 @@
 using Avalonia.Controls;
-using Avalonia.Input;
 using Avalonia.ReactiveUI;
 using Avalonia.VisualTree;
 using Promise.Application.ViewModels;
 using ReactiveUI;
 using System;
-using System.Reactive.Disposables;
-using System.Reactive.Linq;
 
 namespace Promise.UI.Views
 {

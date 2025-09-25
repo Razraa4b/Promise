@@ -2,56 +2,116 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             xmlns:vm="clr-namespace:Promise.Application.ViewModels;assembly=Promise.Application"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"		
+		     xmlns:i="using:Avalonia.Xaml.Interactivity"
+			 xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+			 xmlns:vm="clr-namespace:Promise.Application.ViewModels;assembly=Promise.Application"
 			 xmlns:m="clr-namespace:Promise.Domain.Models;assembly=Promise.Domain"
+             xmlns:controls="clr-namespace:Promise.UI.Controls;assembly=Promise.UI"
 			 x:DataType="vm:NotesViewModel"
 			 x:Class="Promise.UI.Views.NotesView">
-	<Grid Name="MainGrid">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition MinWidth="150" Width="180"/>
-			<ColumnDefinition Width="Auto"/>
-			<ColumnDefinition/>
-		</Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
-			<RowDefinition/>
-			<RowDefinition/>
-			<RowDefinition Height="40"/>
-		</Grid.RowDefinitions>
+	<controls:ModalDialog>
+		<controls:ModalDialog.Dialog>
+			<Border Background="{DynamicResource MediumUniformThemeColor}"
+					Width="225" Height="150"
+					DataContext="{Binding $parent.((vm:NotesViewModel)DataContext)}"
+					CornerRadius="15" Padding="20 10">
+				<DockPanel HorizontalAlignment="Stretch"
+						   LastChildFill="False">
+					<!-- Note title input -->
+					<StackPanel DockPanel.Dock="Top"
+								HorizontalAlignment="Stretch">
+						<TextBlock Text="Note title"
+								   TextAlignment="Center"/>
+						<TextBox Name="TitleTextBox" Margin="0 10"/>
+					</StackPanel>
 
-		<GridSplitter Width="8" Grid.Column="1" Grid.RowSpan="3"
-					  Background="Transparent"/>
-		
-		<!-- Notes tree -->
-		<Border Grid.RowSpan="3"
-				Background="{DynamicResource MediumUniformThemeColor}"
-				Opacity="0.7"
-				CornerRadius="0 10 10 0">
-			<Grid>
-				<TreeView Background="Transparent"
-						  ItemsSource="{Binding Notes}"
-						  SelectedItem="{Binding SelectedNote}">
-					<TreeView.ContextMenu>
-						<ContextMenu>
-							<MenuItem Header="Create"
-									  Command="{Binding CreateNoteCommand}"/>
-							<MenuItem Name="DeleteButton"
-									  Header="Delete"
-									  Command="{Binding DeleteNoteCommand}"
-									  IsEnabled="{Binding SelectedNote, UpdateSourceTrigger=PropertyChanged,
+					<!-- Confirm and cancel buttons -->
+					<StackPanel HorizontalAlignment="Center"
+								DockPanel.Dock="Bottom"
+								Orientation="Horizontal">
+						<Button IsEnabled="{Binding Text, ElementName=TitleTextBox,
+										     Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+								Content="Create" Margin="5 0">
+							<i:Interaction.Behaviors>
+								<EventTriggerBehavior EventName="Click">
+									<InvokeCommandAction Command="{Binding CreateNoteCommand}"
+														 CommandParameter="{Binding Text, ElementName=TitleTextBox}"/>
+									<InvokeCommandAction Command="{x:Static controls:ModalDialog.CloseDialogCommand}"
+														 CommandParameter="{Binding $parent[controls:ModalDialog]}"/>
+								</EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</Button>
+
+						<Button Content="Cancel" Margin="5 0">
+							<i:Interaction.Behaviors>
+								<EventTriggerBehavior EventName="Click">
+									<InvokeCommandAction Command="{x:Static controls:ModalDialog.CloseDialogCommand}"
+														 CommandParameter="{Binding $parent[controls:ModalDialog]}"/>
+								</EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</Button>
+					</StackPanel>
+				</DockPanel>
+			</Border>
+		</controls:ModalDialog.Dialog>
+
+		<Grid Name="MainGrid" DataContext="{Binding $parent.((vm:NotesViewModel)DataContext)}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition MinWidth="150" Width="180"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition Height="40"/>
+			</Grid.RowDefinitions>
+
+			<GridSplitter Width="8" Grid.Column="1" Grid.RowSpan="3"
+						  Background="Transparent"/>
+
+			<!-- Notes tree -->
+			<Border Grid.RowSpan="3"
+					Background="{DynamicResource MediumUniformThemeColor}"
+					Opacity="0.7"
+					CornerRadius="0 10 10 0">
+				<Grid>
+					<TreeView Background="Transparent"
+							  ItemsSource="{Binding Notes}"
+							  SelectedItem="{Binding SelectedNote}"
+							  SelectionMode="Single">
+						<TreeView.ContextMenu>
+							<ContextMenu>
+								<MenuItem Header="Create"
+										  Command="{x:Static controls:ModalDialog.ShowDialogCommand}"
+										  CommandParameter="{Binding $parent[controls:ModalDialog]}"/>
+								<MenuItem Name="DeleteButton"
+										  Header="Delete"
+										  Command="{Binding DeleteNoteCommand}"
+										  IsEnabled="{Binding SelectedNote, UpdateSourceTrigger=PropertyChanged,
 												  Converter={x:Static ObjectConverters.IsNotNull}}}"/>
-						</ContextMenu>
-					</TreeView.ContextMenu>
-				</TreeView>
+							</ContextMenu>
+						</TreeView.ContextMenu>
 
-				<TextBlock IsVisible="{Binding !Notes.Count}"
-						   VerticalAlignment="Center"
-						   HorizontalAlignment="Center"
-						   TextWrapping="Wrap"
-						   TextAlignment="Center">
-					It's so empty
-				</TextBlock>
-			</Grid>
-		</Border>
-	</Grid>
+						<TreeView.ItemTemplate>
+							<DataTemplate DataType="{x:Type m:Note}">
+								<Border>
+									<TextBlock Text="{Binding Title}"/>
+								</Border>
+							</DataTemplate>
+						</TreeView.ItemTemplate>
+					</TreeView>
+
+					<TextBlock IsVisible="{Binding !Notes.Count}"
+							   VerticalAlignment="Center"
+							   HorizontalAlignment="Center"
+							   TextWrapping="Wrap"
+							   TextAlignment="Center">
+						It's so empty
+					</TextBlock>
+				</Grid>
+			</Border>
+		</Grid>
+	</controls:ModalDialog>
 </UserControl>

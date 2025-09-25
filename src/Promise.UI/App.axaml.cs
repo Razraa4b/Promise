@@ -59,6 +59,8 @@ namespace Promise.UI
                 ApplicationContext context = new ApplicationContext(optionsBuilder.Options);
                 return context;
             }).InstancePerLifetimeScope();
+            // UoW
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
             // Repositories
             builder.RegisterType<NoteRepository>().As<IRepository<Note>>().InstancePerLifetimeScope();
             builder.RegisterType<ReportRepository>().As<IRepository<Report>>().InstancePerLifetimeScope();

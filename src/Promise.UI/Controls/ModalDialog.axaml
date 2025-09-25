@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:controls="clr-namespace:Promise.UI.Controls;assembly=Promise.UI"
+			 x:Class="Promise.UI.Controls.ModalDialog"
+			 DataContext="{Binding RelativeSource={RelativeSource Self}}">
+	<UserControl.Template>
+		<ControlTemplate TargetType="controls:ModalDialog">
+			<Grid>
+				<Border HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						ZIndex="9999">
+					<ContentPresenter Name="PART_DialogContent" Content="{Binding Dialog}"
+									  IsVisible="False"/>
+				</Border>
+				<ContentPresenter Name="PART_Content" Content="{TemplateBinding Content}"/>
+			</Grid>
+		</ControlTemplate>
+	</UserControl.Template>
+</UserControl>

@@ -12,7 +12,7 @@ namespace Promise.Infrastructure.Database
         public INoteRepository NoteRepository { get; init; }
         public IReportRepository ReportRepository { get; init; }
 
-        UnitOfWork(ApplicationContext context)
+        public UnitOfWork(ApplicationContext context)
         {
             _context = context;
 
@@ -33,6 +33,7 @@ namespace Promise.Infrastructure.Database
         {
             if (_transaction == null) return;
 
+            await _context.SaveChangesAsync();
             await _transaction.CommitAsync(token);
             await _transaction.DisposeAsync();
             _transaction = null;

@@ -101,9 +101,10 @@
 					</TabControl.ItemsPanel>
 					<TabItem Header="Notes" IsSelected="True"/>
 					<TabItem Header="Reports"/>
-					<TabItem Header="Daily Report"/>
 					<TabItem Header="Events"/>
 					<TabItem Header="Schedule"/>
+					<TabItem Header="Settings"/>
+					<TabItem Header="Account"/>
 				</TabControl>
 			</Border>
 			<Grid>

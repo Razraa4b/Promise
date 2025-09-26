@@ -58,7 +58,8 @@
 		</controls:ModalDialog.Dialog>
 
 		<!-- Main view content -->
-		<Grid Name="MainGrid" DataContext="{Binding $parent.((vm:NotesViewModel)DataContext)}">
+		<Grid Name="MainGrid"
+			  DataContext="{Binding $parent.((vm:NotesViewModel)DataContext)}">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition MinWidth="150" Width="180"/>
 				<ColumnDefinition Width="Auto"/>
@@ -67,17 +68,16 @@
 			<Grid.RowDefinitions>
 				<RowDefinition/>
 				<RowDefinition/>
-				<RowDefinition Height="40"/>
+				<RowDefinition Height="20"/>
 			</Grid.RowDefinitions>
 
 			<GridSplitter Width="8" Grid.Column="1" Grid.RowSpan="3"
-						  Background="Transparent"/>
+						  Background="Transparent" ZIndex="9999"/>
 
 			<!-- Notes tree -->
 			<Border Grid.RowSpan="3"
 					Background="{DynamicResource MediumUniformThemeColor}"
-					Opacity="0.7"
-					CornerRadius="0 10 10 0">
+					Opacity="0.7">
 				<Grid>
 					<TreeView Background="Transparent"
 							  ItemsSource="{Binding Notes}"
@@ -114,6 +114,44 @@
 					</TextBlock>
 				</Grid>
 			</Border>
+
+			<!-- Note content panel (for edit or read) -->
+			<TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" 
+					 Text="{Binding SelectedNote?.Content}" MinWidth="1"
+					 AcceptsReturn="True" AcceptsTab="True"
+					 Opacity="0.7" CornerRadius="0" BorderThickness="1"
+					 Background="{DynamicResource SolidThemeColor}"
+					 Foreground="{DynamicResource FontStrongThemeColor}"
+					 BorderBrush="{DynamicResource SolidThemeColor}">
+				<TextBox.Styles>
+					<Style Selector="TextBox /template/ TextPresenter#PART_TextPresenter">
+						<Setter Property="Opacity" Value="1"/>
+					</Style>
+					
+					<Style Selector="TextBox:pointerover">
+						<Setter Property="Foreground" Value="{DynamicResource FontStrongThemeColor}"/>
+
+						<Style Selector="^ /template/ Border#PART_BorderElement">
+							<Setter Property="BorderBrush" Value="{DynamicResource SolidThemeColor}"/>
+							<Setter Property="Background" Value="{DynamicResource SolidThemeColor}" />
+						</Style>
+					</Style>
+
+					<Style Selector="TextBox:focus">
+						<Setter Property="Foreground" Value="{DynamicResource FontStrongThemeColor}" />
+
+						<Style Selector="^ /template/ TextBlock#PART_Watermark">
+							<Setter Property="Foreground" Value="{DynamicResource FontStrongThemeColor}" />
+						</Style>
+
+						<Style Selector="^ /template/ Border#PART_BorderElement">
+							<Setter Property="Background" Value="{DynamicResource SolidThemeColor}"/>
+							<Setter Property="BorderBrush" Value="{DynamicResource SolidThemeColor}"/>
+							<Setter Property="BorderThickness" Value="1" />
+						</Style>
+					</Style>
+				</TextBox.Styles>
+			</TextBox>
 		</Grid>
 	</controls:ModalDialog>
 </UserControl>

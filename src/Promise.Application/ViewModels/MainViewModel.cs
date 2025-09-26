@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using System.Reactive.Disposables;
 
@@ -11,15 +12,17 @@ namespace Promise.Application.ViewModels
             ["Notes"] = typeof(NotesViewModel),
             ["Reports"] = typeof(ReportsViewModel)
         };
+        private readonly ILogger<MainViewModel> _logger;
         private readonly ILifetimeScope _scope;
 
         public RoutingState Router { get; } = new RoutingState();
 
         public ReactiveCommand<string, IRoutableViewModel?> NavigateViewCommand { get; }
 
-        public MainViewModel(ILifetimeScope scope)
+        public MainViewModel(ILifetimeScope scope, ILogger<MainViewModel> logger)
         {
             _scope = scope;
+            _logger = logger;
 
             NavigateViewCommand = ReactiveCommand.CreateFromObservable<string, IRoutableViewModel?>(
                 param => NavigateToView(param)
@@ -38,6 +41,7 @@ namespace Promise.Application.ViewModels
                 if (_scope.TryResolve(viewModelType, out object? instance) &&
                     instance is IRoutableViewModel viewModel)
                 {
+                    _logger.LogDebug($"Navigate to {viewName} view with viewmodel {viewModelType.Name}");
                     return Router.Navigate.Execute(viewModel);
                 }
             }

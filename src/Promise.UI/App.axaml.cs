@@ -23,19 +23,20 @@ namespace Promise.UI
     public partial class App : Avalonia.Application
     {
         private ILogger<App> _logger = null!;
+        
+        public IContainer Services { get; private set; }
 
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
         }
 
-        public override void OnFrameworkInitializationCompleted()
+        public override void RegisterServices()
         {
-            BindingPlugins.DataValidators.RemoveAt(0);
+            base.RegisterServices();
 
             ContainerBuilder builder = new ContainerBuilder();
 
-            #region Services
             // Theme Manager
             builder.RegisterType<ThemeManager>().SingleInstance();
             // Logger factory
@@ -74,37 +75,38 @@ namespace Promise.UI
             builder.Register(c => new ReportsView() { DataContext = c.Resolve<NotesViewModel>() }).AsImplementedInterfaces().SingleInstance();
             // View Locator
             builder.Register(c => new RxViewLocator(c.Resolve<ILifetimeScope>()));
-            #endregion
 
             AutofacDependencyResolver resolver = builder.UseAutofacDependencyResolver();
 
             builder.RegisterInstance(resolver);
 
-            IContainer container = builder.Build();
+            Services = builder.Build();
 
             RxApp.MainThreadScheduler = AvaloniaScheduler.Instance;
 
             Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetCallingAssembly());
+        }
 
-
+        public override void OnFrameworkInitializationCompleted()
+        {
             // Setup logger
-            _logger = container.Resolve<ILogger<App>>();
+            _logger = Services.Resolve<ILogger<App>>();
 
             // Setup view locator
-            Locator.CurrentMutable.RegisterLazySingleton(() => container.Resolve<RxViewLocator>(), typeof(IViewLocator));
+            Locator.CurrentMutable.RegisterLazySingleton(() => Services.Resolve<RxViewLocator>(), typeof(IViewLocator));
 
             // Select theme by system default
-            ThemeManager manager = container.Resolve<ThemeManager>();
+            ThemeManager manager = Services.Resolve<ThemeManager>();
             ThemeMode theme = ActualThemeVariant == ThemeVariant.Light ? ThemeMode.Light : ThemeMode.Dark;
             manager.ChangeTheme(theme);
 
-            // Initialize database
-            container.Resolve<ApplicationContext>();
+            // Initialize the database so as not to freeze the UI when receiving the service
+            Services.Resolve<ApplicationContext>();
 
             _logger.LogDebug("Opening the main view...");
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = container.Resolve<MainWindow>();
+                desktop.MainWindow = Services.Resolve<MainWindow>();
             }
 
             base.OnFrameworkInitializationCompleted();

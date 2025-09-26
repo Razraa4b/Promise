@@ -10,7 +10,8 @@
              xmlns:controls="clr-namespace:Promise.UI.Controls;assembly=Promise.UI"
 			 x:DataType="vm:NotesViewModel"
 			 x:Class="Promise.UI.Views.NotesView">
-	<controls:ModalDialog>
+	<controls:ModalDialog Name="MainDialog">
+		<!-- Modal dialog when creating note -->
 		<controls:ModalDialog.Dialog>
 			<Border Background="{DynamicResource MediumUniformThemeColor}"
 					Width="225" Height="150"
@@ -56,6 +57,7 @@
 			</Border>
 		</controls:ModalDialog.Dialog>
 
+		<!-- Main view content -->
 		<Grid Name="MainGrid" DataContext="{Binding $parent.((vm:NotesViewModel)DataContext)}">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition MinWidth="150" Width="180"/>

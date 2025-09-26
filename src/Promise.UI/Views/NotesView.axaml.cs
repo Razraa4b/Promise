@@ -24,6 +24,8 @@ namespace Promise.UI.Views
                     hostWindow.Resized += HostWindowResized;
                 }
             });
+
+            MainDialog.OnDialogClosed += d => TitleTextBox.Clear();
         }
 
         private void HostWindowResized(object? sender, WindowResizedEventArgs e)

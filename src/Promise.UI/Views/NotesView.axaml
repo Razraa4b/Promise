@@ -68,7 +68,7 @@
 			<Grid.RowDefinitions>
 				<RowDefinition/>
 				<RowDefinition/>
-				<RowDefinition Height="20"/>
+				<RowDefinition Height="25"/>
 			</Grid.RowDefinitions>
 
 			<GridSplitter Width="8" Grid.Column="1" Grid.RowSpan="3"
@@ -83,6 +83,11 @@
 							  ItemsSource="{Binding Notes}"
 							  SelectedItem="{Binding SelectedNote}"
 							  SelectionMode="Single">
+						<i:Interaction.Behaviors>
+							<EventTriggerBehavior EventName="SelectionChanged">
+								<InvokeCommandAction Command="{Binding ScheduleContentSaveCommand}"/>
+							</EventTriggerBehavior>
+						</i:Interaction.Behaviors>
 						<TreeView.ContextMenu>
 							<ContextMenu>
 								<MenuItem Header="Create"
@@ -117,9 +122,9 @@
 
 			<!-- Note content panel (for edit or read) -->
 			<TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" 
-					 Text="{Binding SelectedNote?.Content}" MinWidth="1"
+					 Text="{Binding SelectedNoteContent}" MinWidth="1"
 					 AcceptsReturn="True" AcceptsTab="True"
-					 Opacity="0.7" CornerRadius="0" BorderThickness="1"
+					 Opacity="0.6" CornerRadius="0" BorderThickness="1"
 					 Background="{DynamicResource SolidThemeColor}"
 					 Foreground="{DynamicResource FontStrongThemeColor}"
 					 BorderBrush="{DynamicResource SolidThemeColor}">
@@ -152,6 +157,22 @@
 					</Style>
 				</TextBox.Styles>
 			</TextBox>
+
+			<Border Grid.Row="2" Grid.Column="1" Margin="5 0"
+					Grid.ColumnSpan="2" Background="Transparent">
+				<StackPanel Orientation="Horizontal"
+						    FlowDirection="RightToLeft"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center">
+					<StackPanel.Styles>
+						<Style Selector="TextBlock">
+							<Setter Property="FontSize" Value="12"/>
+						</Style>
+					</StackPanel.Styles>
+					
+					<TextBlock Text="The text settings will be presented here."/>
+				</StackPanel>
+			</Border>
 		</Grid>
 	</controls:ModalDialog>
 </UserControl>

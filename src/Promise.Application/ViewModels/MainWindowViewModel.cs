@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
-using System.Diagnostics.Metrics;
 using System.Reactive;
 using System.Reactive.Disposables;
 

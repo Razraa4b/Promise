@@ -16,6 +16,7 @@
     <img src="https://img.shields.io/badge/C%23-black?style=flat-square&logo=sharp&logoColor=lightblue&logoSize=auto&label=Language&labelColor=gray&color=purple"/>
     <img src="https://img.shields.io/badge/Platform-black?style=flat-square&logo=appveyor&logoColor=yellow&logoSize=auto&label=Cross&labelColor=gray&color=blue"/>
     <img src="https://img.shields.io/badge/Architecture-black?style=flat-square&logo=appveyor&logoColor=red&logoSize=auto&label=Clean&labelColor=gray&color=green"/>
+    <img src="https://img.shields.io/badge/9.0-black?style=flat-square&logo=appveyor&logoColor=red&logoSize=auto&label=.NET&labelColor=gray&color=purple"/>
 </p>
 
 ## 📖 Promise Project Overview

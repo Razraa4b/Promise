@@ -129,6 +129,12 @@
 					 Background="{DynamicResource SolidThemeColor}"
 					 Foreground="{DynamicResource FontStrongThemeColor}"
 					 BorderBrush="{DynamicResource SolidThemeColor}">
+				<!-- Save the content when the user has switched to another control -->
+				<i:Interaction.Behaviors>
+					<ia:EventTriggerBehavior EventName="LostFocus">
+						<ia:InvokeCommandAction Command="{Binding ScheduleContentSaveCommand}"/>
+					</ia:EventTriggerBehavior>
+				</i:Interaction.Behaviors>
 				<TextBox.Styles>
 					<Style Selector="TextBox /template/ TextPresenter#PART_TextPresenter">
 						<Setter Property="Opacity" Value="1"/>
@@ -159,6 +165,7 @@
 				</TextBox.Styles>
 			</TextBox>
 
+			<!-- Text settings panel -->
 			<Border Grid.Row="2" Grid.Column="1" Margin="5 0"
 					Grid.ColumnSpan="2" Background="Transparent">
 				<StackPanel Orientation="Horizontal"

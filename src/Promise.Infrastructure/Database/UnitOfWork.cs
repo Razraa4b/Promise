@@ -81,9 +81,9 @@ namespace Promise.Infrastructure.Database
 
         public void Dispose()
         {
-            if(!_disposed)
+            if (!_disposed)
             {
-                if(_transaction != null)
+                if (_transaction != null)
                 {
                     _transaction.Dispose();
                 }

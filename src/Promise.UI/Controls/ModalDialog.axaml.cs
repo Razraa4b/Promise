@@ -1,11 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Templates;
-using Avalonia.Input;
 using ReactiveUI;
 using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
 
@@ -21,7 +18,7 @@ namespace Promise.UI.Controls
             o => o.Dialog,
             (o, s) => o.Dialog = s
         );
-        
+
         private Control? dialog;
         public Control? Dialog
         {

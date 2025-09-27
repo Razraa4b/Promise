@@ -1,6 +1,5 @@
 using Autofac;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using Avalonia.Styling;
@@ -8,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Promise.Application.ViewModels;
 using Promise.Domain.Contracts;
-using Promise.Domain.Enums;
 using Promise.Domain.Entities;
+using Promise.Domain.Enums;
 using Promise.Infrastructure.Database;
 using Promise.Infrastructure.Repositories;
 using Promise.UI.Views;

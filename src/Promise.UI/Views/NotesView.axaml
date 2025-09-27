@@ -35,12 +35,12 @@
 										     Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
 								Content="Create" Margin="5 0">
 							<i:Interaction.Behaviors>
-								<EventTriggerBehavior EventName="Click">
-									<InvokeCommandAction Command="{Binding CreateNoteCommand}"
+								<ia:EventTriggerBehavior EventName="Click">
+									<ia:InvokeCommandAction Command="{Binding CreateNoteCommand}"
 														 CommandParameter="{Binding Text, ElementName=TitleTextBox}"/>
-									<InvokeCommandAction Command="{x:Static controls:ModalDialog.CloseDialogCommand}"
+									<ia:InvokeCommandAction Command="{x:Static controls:ModalDialog.CloseDialogCommand}"
 														 CommandParameter="{Binding $parent[controls:ModalDialog]}"/>
-								</EventTriggerBehavior>
+								</ia:EventTriggerBehavior>
 							</i:Interaction.Behaviors>
 						</Button>
 
@@ -72,7 +72,8 @@
 			</Grid.RowDefinitions>
 
 			<GridSplitter Width="8" Grid.Column="1" Grid.RowSpan="3"
-						  Background="Transparent" ZIndex="9999"/>
+						  Background="Transparent" ZIndex="9999"
+						  DragDelta="GridSplitter_DragDelta"/>
 
 			<!-- Notes tree -->
 			<Border Grid.RowSpan="3"
@@ -84,9 +85,9 @@
 							  SelectedItem="{Binding SelectedNote}"
 							  SelectionMode="Single">
 						<i:Interaction.Behaviors>
-							<EventTriggerBehavior EventName="SelectionChanged">
-								<InvokeCommandAction Command="{Binding ScheduleContentSaveCommand}"/>
-							</EventTriggerBehavior>
+							<ia:EventTriggerBehavior EventName="SelectionChanged">
+								<ia:InvokeCommandAction Command="{Binding ScheduleContentSaveCommand}"/>
+							</ia:EventTriggerBehavior>
 						</i:Interaction.Behaviors>
 						<TreeView.ContextMenu>
 							<ContextMenu>

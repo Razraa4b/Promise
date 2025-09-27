@@ -9,7 +9,7 @@ namespace Promise.UI.Views
 {
     public partial class NotesView : ReactiveUserControl<NotesViewModel>
     {
-        private const double EdgeOffset = 10;
+        private const double EdgeOffset = 20;
         private Window? hostWindow;
 
         public NotesView()
@@ -38,6 +38,19 @@ namespace Promise.UI.Views
             if (Math.Abs(newWidth - currentWidth) > 0)
             {
                 MainGrid.ColumnDefinitions[0].Width = new GridLength(newWidth);
+            }
+        }
+
+        private void GridSplitter_DragDelta(object? sender, Avalonia.Input.VectorEventArgs e)
+        {
+            if (hostWindow == null) return;
+
+            double currentWidth = MainGrid.ColumnDefinitions[0].Width.Value;
+
+            // Resize of the column if it tries to increase the size beyond the limit.
+            if (currentWidth > hostWindow.Width - EdgeOffset)
+            {
+                MainGrid.ColumnDefinitions[0].Width = new GridLength(hostWindow.Width - EdgeOffset);
             }
         }
     }

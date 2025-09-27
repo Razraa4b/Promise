@@ -4,7 +4,7 @@ using System;
 
 namespace Promise.UI.Views
 {
-    public partial class MainWindow : ReactiveWindow<MainViewModel>
+    public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
     {
         public MainWindow()
         {

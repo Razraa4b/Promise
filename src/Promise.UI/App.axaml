@@ -3,10 +3,6 @@
              x:Class="Promise.UI.App"
              xmlns:local="using:Promise.UI"
              RequestedThemeVariant="Default">
-    <Application.DataTemplates>
-        <local:ViewLocator/>
-    </Application.DataTemplates>
-	
     <Application.Styles>
         <FluentTheme />
     </Application.Styles>

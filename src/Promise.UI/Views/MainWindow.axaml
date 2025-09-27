@@ -9,7 +9,7 @@
         xmlns:vm="clr-namespace:Promise.Application.ViewModels;assembly=Promise.Application"
         xmlns:controls="clr-namespace:Promise.UI.Controls;assembly=Promise.UI"
 		xmlns:converters="clr-namespace:Promise.UI.Converters;assembly=Promise.UI"
-		x:DataType="vm:MainViewModel"
+		x:DataType="vm:MainWindowViewModel"
 		x:Class="Promise.UI.Views.MainWindow"
         Title="Promise App" 
 		Width="1000" Height="600"

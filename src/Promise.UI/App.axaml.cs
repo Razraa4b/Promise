@@ -66,11 +66,11 @@ namespace Promise.UI
             builder.RegisterType<NoteRepository>().As<IRepository<Note>>().InstancePerLifetimeScope();
             builder.RegisterType<ReportRepository>().As<IRepository<Report>>().InstancePerLifetimeScope();
             // View Models
-            builder.RegisterType<MainViewModel>().AsSelf().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<MainWindowViewModel>().AsSelf().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<NotesViewModel>().AsSelf().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<ReportsViewModel>().AsSelf().AsImplementedInterfaces().SingleInstance();
             // Views
-            builder.Register(c => new MainWindow() { DataContext = c.Resolve<MainViewModel>() }).AsSelf().AsImplementedInterfaces().SingleInstance();
+            builder.Register(c => new MainWindow() { DataContext = c.Resolve<MainWindowViewModel>() }).AsSelf().AsImplementedInterfaces().SingleInstance();
             builder.Register(c => new NotesView() { DataContext = c.Resolve<NotesViewModel>() }).AsImplementedInterfaces().SingleInstance();
             builder.Register(c => new ReportsView() { DataContext = c.Resolve<NotesViewModel>() }).AsImplementedInterfaces().SingleInstance();
             // View Locator

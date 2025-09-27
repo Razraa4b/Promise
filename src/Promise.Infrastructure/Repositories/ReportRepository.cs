@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Promise.Domain.Contracts;
-using Promise.Domain.Models;
+using Promise.Domain.Entities;
 using Promise.Infrastructure.Database;
 
 namespace Promise.Infrastructure.Repositories

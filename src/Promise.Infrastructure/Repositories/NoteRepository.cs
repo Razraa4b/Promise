@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Promise.Domain.Contracts;
-using Promise.Domain.Models;
+using Promise.Domain.Entities;
 using Promise.Infrastructure.Database;
 
 namespace Promise.Infrastructure.Repositories
@@ -19,9 +19,10 @@ namespace Promise.Infrastructure.Repositories
             await _context.Notes.AddAsync(entity);
         }
 
-        public async Task Delete(Note entity)
+        public Task Delete(Note entity)
         {
-            await Task.Run(() => _context.Notes.Remove(entity));
+            _context.Notes.Remove(entity);
+            return Task.CompletedTask;
         }
 
         public async Task<Note?> GetById(int id)
@@ -39,9 +40,10 @@ namespace Promise.Infrastructure.Repositories
             return Task.FromResult(_context.Notes.AsQueryable());
         }
 
-        public async Task Update(Note entity)
+        public Task Update(Note entity)
         {
-            await Task.Run(() => _context.Notes.Update(entity));
+            _context.Notes.Update(entity);
+            return Task.CompletedTask;
         }
     }
 }

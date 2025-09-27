@@ -1,4 +1,4 @@
-﻿namespace Promise.Domain.Models
+﻿namespace Promise.Domain.Entities
 {
     public class Note
     {

@@ -6,7 +6,7 @@
 		     xmlns:i="using:Avalonia.Xaml.Interactivity"
 			 xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
 			 xmlns:vm="clr-namespace:Promise.Application.ViewModels;assembly=Promise.Application"
-			 xmlns:m="clr-namespace:Promise.Domain.Models;assembly=Promise.Domain"
+			 xmlns:m="clr-namespace:Promise.Domain.Entities;assembly=Promise.Domain"
              xmlns:controls="clr-namespace:Promise.UI.Controls;assembly=Promise.UI"
 			 x:DataType="vm:NotesViewModel"
 			 x:Class="Promise.UI.Views.NotesView">

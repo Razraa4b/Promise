@@ -1,4 +1,4 @@
-﻿using Promise.Domain.Models;
+﻿using Promise.Domain.Entities;
 
 namespace Promise.Domain.Contracts
 {

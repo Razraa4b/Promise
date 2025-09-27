@@ -1,7 +1,8 @@
-﻿using DynamicData;
+﻿using Avalonia;
+using DynamicData;
 using Microsoft.Extensions.Logging;
 using Promise.Domain.Contracts;
-using Promise.Domain.Models;
+using Promise.Domain.Entities;
 using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -15,6 +16,8 @@ namespace Promise.Application.ViewModels
     {
         private readonly ILogger<NotesViewModel> _logger;
         private readonly IUnitOfWork _unitOfWork;
+
+        private SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
         public string? UrlPathSegment { get; } = "/notes";
         public IScreen HostScreen { get; }
@@ -63,9 +66,11 @@ namespace Promise.Application.ViewModels
             this.WhenActivated(async (CompositeDisposable disposables) =>
             {
                 await LoadNotes();
-
-                Observable.Timer(DateTimeOffset.UtcNow, TimeSpan.FromSeconds(1))
-                    .Subscribe(x => Task.Run(ScheduleContentSave))
+                Observable.Interval(TimeSpan.FromSeconds(1))
+                    .Where(_ => isNoteContentChanged)
+                    .Throttle(TimeSpan.FromSeconds(0.5))
+                    .SelectMany(_ => Observable.FromAsync(ScheduleContentSave))
+                    .Subscribe()
                     .DisposeWith(disposables);
 
                 Disposable.Create(Notes.Clear).DisposeWith(disposables);
@@ -80,19 +85,26 @@ namespace Promise.Application.ViewModels
 
         private async Task ScheduleContentSave()
         {
-            if (SelectedNote == null || !isNoteContentChanged) return;
+            if (SelectedNote == null) return;
 
-            isNoteContentChanged = false;
+            await _semaphore.WaitAsync();
+            
+            await _unitOfWork.Begin();
             try
             {
-                await _unitOfWork.Begin();
                 await _unitOfWork.NoteRepository.Update(SelectedNote);
                 await _unitOfWork.Commit();
+
+                isNoteContentChanged = false;
             }
             catch (Exception ex)
             {
                 _logger.LogDebug($"Occursed exception: {ex.Message}");
                 await _unitOfWork.Rollback();
+            }
+            finally
+            {
+                _semaphore.Release();
             }
         }
 
@@ -104,16 +116,22 @@ namespace Promise.Application.ViewModels
                 LastChangedTime = DateTime.Now
             };
 
+            await _semaphore.WaitAsync();
+            
+            await _unitOfWork.Begin();
             try
             {
-                await _unitOfWork.Begin();
                 await _unitOfWork.NoteRepository.Add(note);
                 await _unitOfWork.Commit();
             }
             catch (Exception ex)
             {
-                _logger.LogDebug($"Occursed exception: {ex.Message}");
+                _logger.LogDebug($"Occursed exception: {ex}");
                 await _unitOfWork.Rollback();
+            }
+            finally
+            {
+                _semaphore.Release();
             }
 
             Notes.Add(note);
@@ -125,22 +143,25 @@ namespace Promise.Application.ViewModels
         {
             if (SelectedNote == null) return;
 
-            Note? note = await _unitOfWork.NoteRepository.GetByTitle(SelectedNote.Title);
-            if(note == null) return;
+            await _semaphore.WaitAsync();
 
+            await _unitOfWork.Begin();
             try
             {
-                await _unitOfWork.Begin();
-                await _unitOfWork.NoteRepository.Delete(note);
+                await _unitOfWork.NoteRepository.Delete(SelectedNote);
                 await _unitOfWork.Commit();
             }
             catch (Exception ex)
             {
-                _logger.LogDebug($"Occursed exception: {ex.Message}");
+                _logger.LogDebug($"Occursed exception: {ex}");
                 await _unitOfWork.Rollback();
             }
+            finally
+            {
+                _semaphore.Release();
+            }
 
-            Notes.Remove(note);
+            Notes.Remove(SelectedNote);
         }
     }
 }

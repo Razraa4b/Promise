@@ -27,11 +27,6 @@ namespace Promise.Application.ViewModels
             NavigateViewCommand = ReactiveCommand.CreateFromObservable<string, IRoutableViewModel?>(
                 param => NavigateToView(param)
             );
-
-            this.WhenActivated((CompositeDisposable disposables) =>
-            {
-                NavigateViewCommand.Execute("Notes");
-            });
         }
 
         private IObservable<IRoutableViewModel?> NavigateToView(string viewName)
@@ -41,7 +36,7 @@ namespace Promise.Application.ViewModels
                 if (_scope.TryResolve(viewModelType, out object? instance) &&
                     instance is IRoutableViewModel viewModel)
                 {
-                    _logger.LogDebug($"Navigate to {viewName} view with viewmodel {viewModelType.Name}");
+                    _logger.LogDebug($"Navigate to View: \'{viewName}\', with view-model: \'{viewModelType.Name}\'");
                     return Router.Navigate.Execute(viewModel);
                 }
             }

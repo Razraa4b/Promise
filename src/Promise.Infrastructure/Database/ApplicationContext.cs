@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Promise.Domain.Models;
+using Promise.Domain.Entities;
 
 namespace Promise.Infrastructure.Database
 {

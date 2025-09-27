@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using Promise.Application.ViewModels;
 using Promise.Domain.Contracts;
 using Promise.Domain.Enums;
-using Promise.Domain.Models;
+using Promise.Domain.Entities;
 using Promise.Infrastructure.Database;
 using Promise.Infrastructure.Repositories;
 using Promise.UI.Views;
@@ -23,8 +23,8 @@ namespace Promise.UI
     public partial class App : Avalonia.Application
     {
         private ILogger<App> _logger = null!;
-        
-        public IContainer Services { get; private set; }
+
+        public IContainer Services { get; private set; } = null!;
 
         public override void Initialize()
         {
@@ -44,12 +44,12 @@ namespace Promise.UI
             {
                 ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
                 {
-                    builder.AddConsole();
+                    builder.ClearProviders();
                     builder.AddDebug();
+                    builder.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Debug);
                 });
                 return loggerFactory;
             }).As<ILoggerFactory>().SingleInstance();
-
             // Logger
             builder.RegisterGeneric(typeof(Logger<>)).As(typeof(ILogger<>)).SingleInstance();
             // Database context
@@ -61,7 +61,7 @@ namespace Promise.UI
                 return context;
             }).InstancePerLifetimeScope();
             // UoW
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerDependency();
             // Repositories
             builder.RegisterType<NoteRepository>().As<IRepository<Note>>().InstancePerLifetimeScope();
             builder.RegisterType<ReportRepository>().As<IRepository<Report>>().InstancePerLifetimeScope();

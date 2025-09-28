@@ -1,19 +1,19 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-	<SolidColorBrush x:Key="SolidThemeColor" Color="#ffffff"/>
-
+	<Color x:Key="MainThemeColor">#ffffff</Color>
+	
 	<!-- Colors for font -->
-	<SolidColorBrush x:Key="FontStrongThemeColor" Color="#000000"/>
-	<SolidColorBrush x:Key="FontMediumThemeColor" Color="#050505"/>
-	<SolidColorBrush x:Key="FontLightThemeColor" Color="#101010"/>
+	<Color x:Key="FontStrongThemeColor">#000000</Color>
+	<Color x:Key="FontMediumThemeColor">#050505</Color>
+	<Color x:Key="FontLightThemeColor"> #101010</Color>
 
 	<!-- Uniform colors -->
-	<SolidColorBrush x:Key="HighUniformThemeColor" Color="#ebebeb"/>
-	<SolidColorBrush x:Key="MediumUniformThemeColor" Color="#d6d6d6"/>
-	<SolidColorBrush x:Key="LowUniformThemeColor" Color="#c9c9c9"/>
+	<Color x:Key="HighUniformThemeColor">  #ebebeb</Color>
+	<Color x:Key="MediumUniformThemeColor">#d6d6d6</Color>
+	<Color x:Key="LowUniformThemeColor">   #c9c9c9</Color>
 	
 	<!-- Contrast colors -->
-	<SolidColorBrush x:Key="HighContrastThemeColor" Color="#101010"/>
-	<SolidColorBrush x:Key="MediumContrastThemeColor" Color="#202020"/>
-	<SolidColorBrush x:Key="LowContrastThemeColor" Color="#303030"/>
+	<Color x:Key="HighContrastThemeColor">  #101010</Color>
+	<Color x:Key="MediumContrastThemeColor">#202020</Color>
+	<Color x:Key="LowContrastThemeColor">   #303030</Color>
 </ResourceDictionary>

@@ -13,7 +13,11 @@
 		</Style>
 	</UserControl.Styles>
 	<Grid>
-		<DockPanel Background="{DynamicResource SolidThemeColor}" IsHitTestVisible="False"/>
+		<DockPanel IsHitTestVisible="False">
+			<DockPanel.Background>
+				<SolidColorBrush Color="{DynamicResource MainThemeColor}"/>
+			</DockPanel.Background>
+		</DockPanel>
 		<DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 			<ContentPresenter Content="{Binding Icon}"/>
 			<TextBlock Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"

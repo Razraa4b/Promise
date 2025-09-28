@@ -13,10 +13,12 @@
 	<controls:ModalDialog Name="MainDialog">
 		<!-- Modal dialog when creating note -->
 		<controls:ModalDialog.Dialog>
-			<Border Background="{DynamicResource MediumUniformThemeColor}"
-					Width="225" Height="150"
+			<Border Width="225" Height="150"
 					DataContext="{Binding $parent.((vm:NotesViewModel)DataContext)}"
 					CornerRadius="15" Padding="20 10">
+				<Border.Background>
+					<SolidColorBrush Color="{DynamicResource MediumUniformThemeColor}"/>
+				</Border.Background>
 				<DockPanel HorizontalAlignment="Stretch"
 						   LastChildFill="False">
 					<!-- Note title input -->
@@ -77,8 +79,10 @@
 
 			<!-- Notes tree -->
 			<Border Grid.RowSpan="3"
-					Background="{DynamicResource MediumUniformThemeColor}"
 					Opacity="0.7">
+				<Border.Background>
+					<SolidColorBrush Color="{DynamicResource MediumUniformThemeColor}"/>
+				</Border.Background>
 				<Grid>
 					<TreeView Background="Transparent"
 							  ItemsSource="{Binding Notes}"
@@ -122,13 +126,19 @@
 			</Border>
 
 			<!-- Note content panel (for edit or read) -->
-			<TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" 
+			<TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2"
 					 Text="{Binding SelectedNoteContent}" MinWidth="1"
 					 AcceptsReturn="True" AcceptsTab="True"
-					 Opacity="0.6" CornerRadius="0" BorderThickness="1"
-					 Background="{DynamicResource SolidThemeColor}"
-					 Foreground="{DynamicResource FontStrongThemeColor}"
-					 BorderBrush="{DynamicResource SolidThemeColor}">
+					 Opacity="0.6" CornerRadius="0" BorderThickness="1">
+				<TextBox.Background>
+					<SolidColorBrush Color="{DynamicResource MainThemeColor}"/>
+				</TextBox.Background>
+				<TextBox.Foreground>
+					<SolidColorBrush Color="{DynamicResource FontStrongThemeColor}"/>
+				</TextBox.Foreground>
+				<TextBox.BorderBrush>
+					<SolidColorBrush Color="{DynamicResource MainThemeColor}"/>
+				</TextBox.BorderBrush>
 				<!-- Save the content when the user has switched to another control -->
 				<i:Interaction.Behaviors>
 					<ia:EventTriggerBehavior EventName="LostFocus">
@@ -139,26 +149,54 @@
 					<Style Selector="TextBox /template/ TextPresenter#PART_TextPresenter">
 						<Setter Property="Opacity" Value="1"/>
 					</Style>
-					
+
 					<Style Selector="TextBox:pointerover">
-						<Setter Property="Foreground" Value="{DynamicResource FontStrongThemeColor}"/>
+						<Setter Property="Foreground">
+							<Setter.Value>
+								<SolidColorBrush Color="{DynamicResource FontStrongThemeColor}"/>
+							</Setter.Value>
+						</Setter>
 
 						<Style Selector="^ /template/ Border#PART_BorderElement">
-							<Setter Property="BorderBrush" Value="{DynamicResource SolidThemeColor}"/>
-							<Setter Property="Background" Value="{DynamicResource SolidThemeColor}" />
+							<Setter Property="BorderBrush">
+								<Setter.Value>
+									<SolidColorBrush Color="{DynamicResource MainThemeColor}"/>
+								</Setter.Value>
+							</Setter>
+							<Setter Property="Background">
+								<Setter.Value>
+									<SolidColorBrush Color="{DynamicResource MainThemeColor}"/>
+								</Setter.Value>
+							</Setter>
 						</Style>
 					</Style>
 
 					<Style Selector="TextBox:focus">
-						<Setter Property="Foreground" Value="{DynamicResource FontStrongThemeColor}" />
+						<Setter Property="Foreground">
+							<Setter.Value>
+								<SolidColorBrush Color="{DynamicResource FontStrongThemeColor}"/>
+							</Setter.Value>
+						</Setter>
 
 						<Style Selector="^ /template/ TextBlock#PART_Watermark">
-							<Setter Property="Foreground" Value="{DynamicResource FontStrongThemeColor}" />
+							<Setter Property="Foreground">
+								<Setter.Value>
+									<SolidColorBrush Color="{DynamicResource FontStrongThemeColor}"/>
+								</Setter.Value>
+							</Setter>
 						</Style>
 
 						<Style Selector="^ /template/ Border#PART_BorderElement">
-							<Setter Property="Background" Value="{DynamicResource SolidThemeColor}"/>
-							<Setter Property="BorderBrush" Value="{DynamicResource SolidThemeColor}"/>
+							<Setter Property="Background">
+								<Setter.Value>
+									<SolidColorBrush Color="{DynamicResource MainThemeColor}"/>
+								</Setter.Value>
+							</Setter>
+							<Setter Property="BorderBrush">
+								<Setter.Value>
+									<SolidColorBrush Color="{DynamicResource MainThemeColor}"/>
+								</Setter.Value>
+							</Setter>
 							<Setter Property="BorderThickness" Value="1" />
 						</Style>
 					</Style>

@@ -24,8 +24,16 @@
 	</Window.Resources>
 	<Window.Styles>
 		<Style Selector="TabItem">
-			<Setter Property="Background" Value="{DynamicResource HighUniformThemeColor}"/>
-			<Setter Property="Foreground" Value="{DynamicResource FontStrongThemeColor}"/>
+			<Setter Property="Background">
+				<Setter.Value>
+					<SolidColorBrush Color="{DynamicResource HighUniformThemeColor}"/>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="Foreground">
+				<Setter.Value>
+					<SolidColorBrush Color="{DynamicResource FontStrongThemeColor}"/>
+				</Setter.Value>
+			</Setter>
 			<Setter Property="Margin" Value="5 0"/>
 			<Setter Property="FontSize" Value="12"/>
 			<Setter Property="Height" Value="28"/>
@@ -52,25 +60,40 @@
 			</Setter>
 		</Style>
 		<Style Selector="TabItem:pointerover:not(:selected) /template/ Border#PART_LayoutRoot">
-			<Setter Property="Background" Value="{DynamicResource MediumUniformThemeColor}" />
+			<Setter Property="Background">
+				<Setter.Value>
+					<SolidColorBrush Color="{DynamicResource MediumUniformThemeColor}"/>
+				</Setter.Value>
+			</Setter>
 		</Style>
 		<Style Selector="TabItem:selected /template/ ContentPresenter#PART_ContentPresenter">
-			<Setter Property="Foreground" Value="{DynamicResource FontStrongThemeColor}"/>
+			<Setter Property="Foreground">
+				<Setter.Value>
+					<SolidColorBrush Color="{DynamicResource FontStrongThemeColor}"/>
+				</Setter.Value>
+			</Setter>
 		</Style>
 		<Style Selector="TabItem:pointerover:not(:selected) /template/ ContentPresenter#PART_ContentPresenter">
-			<Setter Property="Foreground" Value="{DynamicResource FontStrongThemeColor}"/>
+			<Setter Property="Foreground">
+				<SolidColorBrush Color="{DynamicResource FontStrongThemeColor}"/>
+			</Setter>
 		</Style>
 		<Style Selector="TabItem:selected /template/ Border#PART_LayoutRoot">
-			<Setter Property="Background" Value="{DynamicResource LowUniformThemeColor}"/>
+			<Setter Property="Background">
+				<Setter.Value>
+					<SolidColorBrush Color="{DynamicResource LowUniformThemeColor}"/>
+				</Setter.Value>
+			</Setter>
 		</Style>
 	</Window.Styles>
 	<ExperimentalAcrylicBorder IsHitTestVisible="True">
 		<ExperimentalAcrylicBorder.Material>
 			<ExperimentalAcrylicMaterial
 				BackgroundSource="Digger"
-				TintColor="Black"
 				TintOpacity="1"
-				MaterialOpacity="0.4" />
+				TintColor="{DynamicResource MainThemeColor}"
+				MaterialOpacity="0.4" >
+			</ExperimentalAcrylicMaterial>
 		</ExperimentalAcrylicBorder.Material>
 
 		<DockPanel>
@@ -80,8 +103,10 @@
 
 			<!-- View selection panel for navigation -->
 			<Border DockPanel.Dock="Top"
-					Background="{DynamicResource SolidThemeColor}"
 					HorizontalAlignment="Stretch">
+				<Border.Background>
+					<SolidColorBrush Color="{DynamicResource MainThemeColor}"/>
+				</Border.Background>
 				<TabControl Name="SelectionControl" HorizontalAlignment="Center">
 					<i:Interaction.Behaviors>
 						<ia:EventTriggerBehavior EventName="SelectionChanged"

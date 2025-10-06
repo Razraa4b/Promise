@@ -26,7 +26,6 @@ this project presents a cross-platform desktop application. It's for taking note
 ## Navigation
 
 - [Project Architecture](#project-architecture)
-- [Nuget Packages](#nuget-packages)
 - [Usage](#usage)
 
 ## Project Architecture
@@ -38,25 +37,6 @@ this project presents a cross-platform desktop application. It's for taking note
 - **Promise.Application** - includes the use and implementation of even more abstraction over interface implementations from Promise.Domain. The project is only referenced in Promise.UI
 
 - **Promise.UI** - executable project, represents the entire User-Interface component. It has references to all projects and can also implement several interfaces from Promise.Domain
-
-## Nuget Packages
-
-Used packages sorted by project:
-- Promise.Domain:
-    - Autofac
-- Promise.Infrastructure:
-    - Autofac
-    - Microsoft.EntityFrameworkCore
-    - Microsoft.EntityFrameworkCore.Sqlite
-- Promise.Application:
-    - Autofac
-    - Avalonia.ReactiveUI
-- Promise.UI:
-    - Autofac
-    - Avalonia
-    - Avalonia.Xaml.Behaviors
-    - Avalonia.Svg.Skia
-    - Splat.Autofac
 
 ## Usage
 
